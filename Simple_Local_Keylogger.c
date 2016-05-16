@@ -290,7 +290,7 @@ struct input_event {
 #include <string.h>
 #include <signal.h>
 
-char* code_to_char(int code)
+char* code_to_str(int code)
 {
 	switch(code)
 	{
@@ -458,7 +458,7 @@ int main(int argc, char** argv)
 		
 		if(event.type == EV_KEY && !event.value)
 			
-			fprintf(dst,"%s",code_to_char(event.code));
+			fprintf(dst,"%s",code_to_str(event.code));
 			fflush(NULL);
 			
 	}
