@@ -422,7 +422,7 @@ void handler()
 }
 
 //It must be run as root
-// sudo ./Simple_Local_Keylogger [-d device] [ -o /path/to/file.txt]
+// sudo ./Simple_Local_Keylogger [-d device] [ -o /path/to/file.txt] [-h]
 
 void banner()
 {
@@ -455,7 +455,7 @@ int main(int argc, char** argv)
 	void usage()
 	{
 		banner();
-		fprintf(stderr,"\nUsage: #%s [-d device] [-o output.txt]\n", argv[0]);
+		fprintf(stderr,"\nUsage: #%s [-d device] [-o output.txt] [-h]\n", argv[0]);
 		exit(0);
 	}
 	
