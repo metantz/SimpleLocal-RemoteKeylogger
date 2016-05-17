@@ -451,6 +451,13 @@ int main(int argc, char** argv)
 	int c, d = 0, o = 0, dev, readed, size = sizeof(struct input_event), check = 1;	
 	DIR *directory;
 	FILE *dst;	
+	
+	if(getuid() != 0)
+        {
+                banner();
+                fprintf(stderr, "It must be run as root!!\n");
+                exit(1);
+        }
 
 	void usage()
 	{
