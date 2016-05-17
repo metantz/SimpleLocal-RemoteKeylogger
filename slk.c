@@ -452,7 +452,7 @@ int main(int argc, char** argv)
 	DIR *directory;
 	FILE *dst;	
 	
-	if(getuid() != 0)
+	if(getuid())
         {
                 banner();
                 fprintf(stderr, "It must be run as root!!\n");
