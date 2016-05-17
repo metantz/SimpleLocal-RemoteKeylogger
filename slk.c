@@ -422,7 +422,7 @@ void handler()
 }
 
 //It must be run as root
-// sudo ./Simple_Local_Keylogger [-d device] [ -o /path/to/file.txt] [-h]
+// sudo ./slk [-d device] [ -o /path/to/file.txt] [-h]
 
 void banner()
 {
