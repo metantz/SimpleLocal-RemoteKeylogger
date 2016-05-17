@@ -2,7 +2,8 @@
 /*A lot of functionalities must be added. Coming soon......*/
 
 
-/*
+/* 
+These macros are based on english keyboards
 #define KEY_RESERVED		0
 #define KEY_ESC			1
 #define KEY_1			2
