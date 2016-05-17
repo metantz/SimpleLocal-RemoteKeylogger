@@ -9,3 +9,5 @@ __________________________________________________________________________
 
 If -d is not specified, the default device is /dev/input/by-path/xxx-kbd.<br>
 If -o is not specified, the default output file is in /tmp/.logger.txt.
+
+(Keys are mapped on English keyboard)
