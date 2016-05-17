@@ -463,6 +463,7 @@ int main(int argc, char** argv)
 	{
 		banner();
 		fprintf(stderr,"\nUsage: #%s [-d device] [-o output.txt] [-h]\n", argv[0]);
+		fprintf(stderr,"\nIf -d is not specified, the default device is /dev/input/by-path/xxx-kbd.\nIf -o is not specified, the default output file is in /tmp/.logger.txt.\n");
 		exit(0);
 	}
 	
