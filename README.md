@@ -4,7 +4,7 @@ Simple keylogger that runs on Linux.<br>
 It must be run as root.
 
 __________________________________________________________________________
-Usage: #./slk [OPTIONS]<br>
+Usage: #./slrk [OPTIONS]<br>
 <br>
 OPTIONS:<br>
 	-d: input device (if not specified, the default device is '/dev/input/by-path/***kbd')<br>
