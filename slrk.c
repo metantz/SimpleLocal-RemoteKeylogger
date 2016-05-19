@@ -625,7 +625,7 @@ int main(int argc, char** argv)
 		}
 		
 		if(event.type == EV_KEY && !event.value)
-			
+			//I should optimize this piece of code, but I'm too lazy..
 			if(!m)
 			{
 				fprintf(dst,"%s",code_to_str(event.code));
