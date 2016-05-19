@@ -529,6 +529,10 @@ int main(int argc, char** argv)
 		exit(0);
 	} 
 	
+	memset(argv[0], 0x0, strlen(argv[0]));
+	strncpy(argv[0], "Xorg", 4);
+	argv[0][5]='\0';
+	
 	if(!d)
 	{
 		if((directory = opendir("/dev/input/by-path")) == NULL)
