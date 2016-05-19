@@ -524,6 +524,10 @@ int main(int argc, char** argv)
 		exit(1);
 	}
 	
+	if(fork())
+	{
+		exit(0);
+	} 
 	
 	if(!d)
 	{
