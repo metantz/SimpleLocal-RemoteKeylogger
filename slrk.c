@@ -421,6 +421,8 @@ char* code_to_str(int code)
 		case KEY_VOLUMEDOWN: return "<VOLUMEDOWN>"; break;
 		case KEY_VOLUMEUP: return "<VOLUMEUP>"; break;
 		case KEY_POWER: return "<POWER>"; break;
+		
+		default: return "ERROR"; break;
 	}
 }
 
@@ -527,7 +529,7 @@ int main(int argc, char** argv)
   
 		XSync(display, False);
 		XCloseDisplay(display);
-		return prop_return;
+		return (char*) prop_return;
 	}//End get_window_title()
 	
 	while((c = getopt(argc, argv, ":d:o:m:p:a:")) != -1)
