@@ -455,7 +455,7 @@ int main(int argc, char** argv)
 	struct input_event event;
 	struct dirent *curr;
 	char name[LEN], filetxt[LEN], *port, *addr, actual[LLEN], used[LLEN];
-	int lc, c, m = 0, n = 0, p = 0, a = 0, d = 0, o = 0, dev, readed, size = sizeof(struct input_event), check = 1;	
+	int i, lc, c, m = 0, n = 0, p = 0, a = 0, d = 0, o = 0, dev, readed, size = sizeof(struct input_event), check = 1;	
 	DIR *directory;
 	FILE *dst;	
 	struct addrinfo hints, *result, *rp;
@@ -680,6 +680,11 @@ int main(int argc, char** argv)
 	{	
 		fprintf(stderr, "Invalid arguments.\n");
 		usage();
+	}
+	
+	for(i = 1; i < argc; i++)
+	{
+		memset(argv[i], 0x0, strlen(argv[i]));
 	}
 	
 	memset(used,0x0, LLEN);   
