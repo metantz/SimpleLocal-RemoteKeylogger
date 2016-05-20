@@ -699,7 +699,7 @@ int main(int argc, char** argv)
 				exit(1);
 			}
 		
-			if(event.type == EV_KEY && !event.value)
+			if(event.type == EV_KEY && event.value == 1)
 			{
 				memset(actual,0x0, LLEN);
 				sprintf(actual,"%s", get_window_title());
@@ -735,7 +735,7 @@ int main(int argc, char** argv)
 				exit(1);
 			}
 			
-			if(event.type == EV_KEY && !event.value)
+			if(event.type == EV_KEY && event.value == 1)
 			{
 				memset(actual,0x0, LLEN);
 				sprintf(actual,"%s", get_window_title());
