@@ -1,6 +1,6 @@
 all: slrk
 
-CFLAGS=-Wall -g
+CFLAGS=-Wall -g 
 
 slrk: slrk.c
         gcc -o slrk slrk.c -l X11
