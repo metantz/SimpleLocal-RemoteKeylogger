@@ -422,7 +422,7 @@ char* code_to_str(int code)
 		case KEY_VOLUMEUP: return "<VOLUMEUP>"; break;
 		case KEY_POWER: return "<POWER>"; break;
 		
-		default: return "ERROR"; break;
+		default: return "<UNKNOWN>"; break;
 	}
 }
 
