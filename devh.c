@@ -140,16 +140,16 @@ char* get_kb_symbols(void)
  *	typedef struct {
  * 		struct _XDisplay * display;      // connection to X server 
  * 		unsigned short     flags;        // private to Xkb, do not modify 
- *  	unsigned short     device_spec;  // device of interest 
- *  	KeyCode            min_key_code; // minimum keycode for device 
- *  	KeyCode            max_key_code; // maximum keycode for device 
- *  	XkbControlsPtr     ctrls;        // controls 
- *  	XkbServerMapPtr    server;       // server keymap 
- *  	XkbClientMapPtr    map;          // client keymap 
- *  	XkbIndicatorPtr    indicators;   // indicator map 
- *  	XkbNamesPtr        names;        // names for all components       <--[This is our champion!]
- *  	XkbCompatMapPtr    compat;       // compatibility map 
- *  	XkbGeometryPtr     geom;         // physical geometry of keyboard 
+ *  		unsigned short     device_spec;  // device of interest 
+ *  		KeyCode            min_key_code; // minimum keycode for device 
+ 	  	KeyCode            max_key_code; // maximum keycode for device 
+ 	  	XkbControlsPtr     ctrls;        // controls 
+ *  		XkbServerMapPtr    server;       // server keymap 
+ 	  	XkbClientMapPtr    map;          // client keymap 
+ *  		XkbIndicatorPtr    indicators;   // indicator map 
+ 	  	XkbNamesPtr        names;        // names for all components       <--[This is our champion!]
+ *  		XkbCompatMapPtr    compat;       // compatibility map 
+ 	  	XkbGeometryPtr     geom;         // physical geometry of keyboard 
  *	} XkbDescRec, *XkbDescPtr;
  */
 	Display *display;
@@ -157,7 +157,8 @@ char* get_kb_symbols(void)
 	Atom symbols;
 	char* atomName;
 
-/* 	NAME
+/* 	
+ *	NAME
  *       	XOpenDisplay, XCloseDisplay - connect or disconnect to X server
  *
  *	SYNTAX
@@ -178,7 +179,8 @@ char* get_kb_symbols(void)
 
 	display = XOpenDisplay(NULL);
 
-/*	NAME
+/*	
+ *	NAME
  *   	   	XkbAllocKeyboard -  Creates a keyboard description from scratch
  *
  *	SYNOPSIS
@@ -200,7 +202,8 @@ char* get_kb_symbols(void)
 	keyboardDesc = XkbAllocKeyboard();
 	if(keyboardDesc == NULL) {return "Error: XkbAllocKeyboard().";}
 
-/*	NAME
+/*	
+ *	NAME
  *    	   	XkbGetNames - Obtain symbolic names from the server
  *
  *	SYNOPSIS
