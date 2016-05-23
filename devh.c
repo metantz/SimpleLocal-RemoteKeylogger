@@ -298,7 +298,7 @@ char* get_kb_keycodes(void)
 
 	if((display = XOpenDisplay(NULL)) == NULL)
 	{
-		return "Error: XOpenDisplay()";} 
+		return "Error: XOpenDisplay()";
 	}
 	keyboardDesc = XkbAllocKeyboard();
 
