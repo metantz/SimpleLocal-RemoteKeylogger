@@ -9,9 +9,9 @@
 	Process name is renamed as "Xorg".
 	It works with both TCP and UDP and with ipv6 too.
 	It must be run as root.
-```
+
 Usage: #./slrk [OPTIONS]
-```
+
 
 ##OPTIONS:
 	-d <input-device>:			If not specified, the default device is '/dev/input/by-path/***kbd'
