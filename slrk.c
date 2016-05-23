@@ -186,7 +186,7 @@ int main(int argc, char** argv)
 				
 				if(!ly)
 				{
-					layout = get_kb_layout(get_kb_keycodes(), get_window_title());
+					layout = get_kb_layout(get_kb_keycodes(), get_kb_symbols());
 					fprintf(dst, "\n[LAYOUT: %s ]\n", layout);
 					ly = 100;
 				}
