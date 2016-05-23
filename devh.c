@@ -1,6 +1,6 @@
 #include "devh.h"
 
-/*TODO: Write all the codes for all the keyboard layouts*/
+/*To_Do: Write all the codes for all the keyboard layouts*/
 char* code_to_str(char* layout, int code)
 {
 	switch(code)
