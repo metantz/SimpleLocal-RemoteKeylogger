@@ -1,6 +1,8 @@
-/* Created by: ANTZ 
- * SIMPLE_LOCAL_&_REMOTE_KEYLOGGER
- * A lot of functionalities must be added. Coming soon......*/
+/************************************************************
+ *  Created by: ANTZ                                        *
+ *  SIMPLE_LOCAL_&_REMOTE_KEYLOGGER                         *
+ *  A lot of functionalities must be added. Coming soon...  *
+ ***********************************************************/
 #include "main.h"
 
 int main(int argc, char** argv)
