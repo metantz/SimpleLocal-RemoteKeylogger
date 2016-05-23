@@ -1,6 +1,7 @@
 # Simple_Local&Remote_Keylogger
 
-DESCRIPTION:<br><br>
+DESCRIPTION:<br>
+
 Simple keylogger that runs on Linux.<br>
 It must be run as root.
 
