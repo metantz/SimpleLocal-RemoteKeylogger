@@ -309,6 +309,30 @@ char* get_kb_keycodes(void)
 }//End of get_kb_keycodes()
 
 
+/*****************************
+ *  Get the keyboard layout  *
+ * **************************/
+ 
+char* get_kb_layout(char *keycodes, char *symbols)
+{
+   // QWERTY(italian, us, polish, spanish), 
+   //french, deutch, Colemak, Dvorak, Workman
+   if(strstr(keycodes, "qwerty"))
+   {
+   		if(strstr(symbols, "it")){ return "it";}
+   		else if(strstr(symbols, "us")){ return "us";}
+   		else if(strstr(symbols, "pl")){ return "pl";}
+   		else if(strstr(symbols, "es")){return "es";}
+   }
+   else if(strstr(symbols, "fr")){ return "fr";}
+   else if(strstr(symbols, "de")){return "de";}
+   else if(strstr(keycodes, "colemak")){ return "colemak";}
+   else if(strstr(keycodes, "dvorak")){ return "dvorak";}
+   else if(strstr(keycodes, "workman")){ return "workman";}
+   else return "unknown"; 
+}//End of get_kb_layout()
+
+
 /*****************************************
  *  Get the title of the active window.  *
  ****************************************/
@@ -318,9 +342,9 @@ char* get_window_title(void)
 	
 /*
  *  int XGetWindowProperty(Display *display, Window w, Atom property, long long_offset, 
- *						 long long_length, Bool delete, Atom req_type, Atom *actual_type_return, 
- *						 int *actual_for‐mat_return, unsigned long *nitems_return, 
- *						 unsigned long *bytes_after_return, unsigned char **prop_return);
+ *			   long long_length, Bool delete, Atom req_type, Atom *actual_type_return, 
+ *			   int *actual_for‐mat_return, unsigned long *nitems_return, 
+ *			   unsigned long *bytes_after_return, unsigned char **prop_return);
  */
 
 	Display *display;
@@ -368,30 +392,6 @@ char* get_window_title(void)
 	XCloseDisplay(display);
 	return (char*) prop_return;
 }//End get_window_title()
-
-
-/*****************************
- *  Get the keyboard layout  *
- * **************************/
- 
-char* get_kb_layout(char *keycodes, char *symbols)
-{
-   // QWERTY(italian, us, polish, spanish), 
-   //french, deutch, Colemak, Dvorak, Workman
-   if(strstr(keycodes, "qwerty"))
-   {
-   		if(strstr(symbols, "it")){ return "it";}
-   		else if(strstr(symbols, "us")){ return "us";}
-   		else if(strstr(symbols, "pl")){ return "pl";}
-   		else if(strstr(symbols, "es")){return "es";}
-   }
-   else if(strstr(symbols, "fr")){ return "fr";}
-   else if(strstr(symbols, "de")){return "de";}
-   else if(strstr(keycodes, "colemak")){ return "colemak";}
-   else if(strstr(keycodes, "dvorak")){ return "dvorak";}
-   else if(strstr(keycodes, "workman")){ return "workman";}
-   else return "unknown"; 
-}//End of get_kb_layout()
 
 
 /*************************************************************
