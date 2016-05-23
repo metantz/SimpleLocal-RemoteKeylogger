@@ -126,9 +126,9 @@ char* code_to_str(char* layout, int code)
 	}
 }
 
-/******************************************
- *  Get symbols from the keyboard layout  *
- *****************************************/
+/****************************************
+ *  Get symbols from the keyboard info  *
+ ***************************************/
 
 char* get_kb_symbols(void)
 {
@@ -279,9 +279,9 @@ char* get_kb_symbols(void)
 }//End of get_kb_symbols()
 
 
-/*******************************************
- *  Get keycodes from the keyboard layout  *
- ******************************************/
+/*****************************************
+ *  Get keycodes from the keyboard info  *
+ ****************************************/
 
 char* get_kb_keycodes(void)
 {
