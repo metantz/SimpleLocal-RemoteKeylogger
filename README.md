@@ -45,7 +45,7 @@ Client#./slrk -m remote -a ::1 -p 8888
 - COLEMAK
 - default: qwerty-us<br>
 
-You may also change keyboard during `slrk` execution with:
+You may also change keyboard during `slrk` execution with, for example:
 ```bash
 $setxkbmap dvorak
 ```
