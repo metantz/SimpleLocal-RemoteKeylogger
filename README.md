@@ -44,5 +44,8 @@ Client#./slrk -m remote -a ::1 -p 8888
 - DVORAK: us.
 - COLEMAK
 - default: qwerty-us
-
+We can change keyboard with:
+```bash
+$setxkbmap dvorak
+```
 
