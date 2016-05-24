@@ -36,6 +36,8 @@ int main(int argc, char** argv)
                 fprintf(stderr,"\n\t[UDP]\n\tServer$ nc -u -lvp 8888 > logger.txt\n\tClient#%s -m remote -a 127.0.0.1 -p 8888\n", argv[0]);
                 fprintf(stderr,"\n\t[IPv6]\n\tServer$ nc -6 -lvp 8888 > logger.txt\n\tClient#%s -m remote -a ::1 -p 8888\n",argv[0]);
                 fprintf(stderr,"\nNOTES:\n\tSupported keyboards:\n\n\t- QWERTY: us, es, it.\n\t- AZERTY: fr.\n\t- QWERTZ: de.\n\t- DVORAK: us.\n\t- COLEMAK\n\t- default: qwerty-us.\n");
+                fprintf(stderr,"\n\tYou may also change keyboard during slrk execution with, for example:\n");
+                fprintf(stderr,"\n\t  $setxkbmap dvorak\n\n\tand slrk will detects the new layout.\n");
                 exit(0);
         }
 
