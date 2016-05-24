@@ -8,3 +8,10 @@
 #include <string.h>
 #include <stdio.h>
 #include <linux/input.h>
+
+#define FR 1
+#define DE 2
+#define IT 3
+#define ES 4
+#define COLEMAK 5
+#define DVORAK 6
