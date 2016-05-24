@@ -43,9 +43,11 @@ Client#./slrk -m remote -a ::1 -p 8888
 - QWERTZ: de.
 - DVORAK: us.
 - COLEMAK
-- default: qwerty-us
-We can change keyboard with:
+- default: qwerty-us<br>
+
+You may also change keyboard during `slrk` execution with:
 ```bash
 $setxkbmap dvorak
 ```
+and `slrk` will detects the new layout.
 
