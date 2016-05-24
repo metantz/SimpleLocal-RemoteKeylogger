@@ -16,9 +16,9 @@
 ```
 ##OPTIONS:
 ```
--d <input-device>:			          If not specified, the default device is '/dev/input/by-path/***kbd'
--o <output-file>:			            It can be used only if '-m remote' option is not specified. The default output file is '/tmp/.logger.txt'
--m remote -a <IP-ADDR> -p <PORT>:	It sends all the keystrokes on the remote server located at <IP-ADDR:PORT>
+-d <input-device>:                  If not specified, the default device is '/dev/input/by-path/***kbd'
+-o <output-file>:                   It can be used only if '-m remote' option is not specified. The default output file is '/tmp/.logger.txt'
+-m remote -a <IP-ADDR> -p <PORT>:   It sends all the keystrokes on the remote server located at <IP-ADDR:PORT>
 ```
 ##EXAMPLES:
 
