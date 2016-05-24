@@ -739,7 +739,7 @@ char* code_to_str(char* layout, int code)
 				{
 					case DVORAK: return "v"; break;
 					case FR:  return ":"; 
-					default: break;return "."; break;
+					default: return "."; break;
 				}
 				break;
 		case KEY_SLASH: 
