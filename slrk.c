@@ -188,8 +188,9 @@ int main(int argc, char** argv)
 				if(!ly)
 				{
 					layout = get_kb_layout(get_kb_keycodes(), get_kb_symbols());
-					fprintf(dst, "\n\n[LAYOUT: %s ]\n\n", layout);
-					ly = 500;
+					fprintf(dst, "\n\n[Checking Layout....]");
+					fprintf(dst, "\n[LAYOUT: %s ]\n\n", layout);
+					ly = 200;
 				}
 
 				ly--;
@@ -234,10 +235,11 @@ int main(int argc, char** argv)
 				if(!ly)
 				{
 					layout = get_kb_layout(get_kb_keycodes(), get_kb_symbols());
-					write(lc,"\n\n[LAYOUT: ", 10);
+					write(lc,"\n\n[Checking layout....]\n", 25);
+					write(lc,"[LAYOUT: ", 9);
 					write(lc, layout, strlen(layout));
 					write(lc, " ]\n\n", 4);
-					ly = 500;
+					ly = 200;
 				}
 
 				ly--;
