@@ -200,8 +200,9 @@ char* get_kb_layout(char *keycodes, char *symbols)
    if(strstr(keycodes, "qwerty"))
    {
    	if(strstr(symbols, "it")){ return "it";}
-   	else if(strstr(symbols, "us")){ return "us";}
+   	else if(strstr(symbols, "dvorak")){return "dvorak";}
 	else if(strstr(symbols, "es")){return "es";}
+	else if(strstr(symbols, "us")){ return "us";}
 	else return "unknown";
    }
    else if(strstr(symbols, "fr")){ return "fr";}
