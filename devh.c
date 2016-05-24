@@ -1,131 +1,5 @@
 #include "devh.h"
 
-/*To_Do: Write all the codes for all the keyboard layouts*/
-char* code_to_str(char* layout, int code)
-{
-	switch(code)
-	{
-		//Letters:
-		case KEY_A: return "a"; break;			
-		case KEY_B: return "b"; break;
-		case KEY_C: return "c"; break;
-		case KEY_D: return "d"; break;
-		case KEY_E: return "e"; break;
-		case KEY_F: return "f"; break;
-		case KEY_G: return "g"; break;
-		case KEY_H: return "h"; break;
-		case KEY_I: return "i"; break;
-		case KEY_J: return "j"; break;
-		case KEY_K: return "k"; break;
-		case KEY_L: return "l"; break;
-		case KEY_M: return "m"; break;
-		case KEY_N: return "n"; break;
-		case KEY_O: return "o"; break;
-		case KEY_P: return "p"; break;
-		case KEY_Q: return "q"; break;
-		case KEY_R: return "r"; break;
-		case KEY_S: return "s"; break;
-		case KEY_T: return "t"; break;
-		case KEY_U: return "u"; break;
-		case KEY_V: return "v"; break;
-		case KEY_W: return "w"; break;
-		case KEY_X: return "x"; break;
-		case KEY_Y: return "y"; break;
-		case KEY_Z: return "z"; break;
-		//Numbers:
-		case KEY_0: return "0"; break;
-		case KEY_1: return "1"; break;
-		case KEY_2: return "2"; break;
-		case KEY_3: return "3"; break;
-		case KEY_4: return "4"; break;
-		case KEY_5: return "5"; break;
-		case KEY_6: return "6"; break;
-		case KEY_7: return "7"; break;
-		case KEY_8: return "8"; break;
-		case KEY_9: return "9"; break;
-		//Special chars:
-		case KEY_ESC: return "<ESC>"; break;
-		case KEY_BACKSPACE: return "<BACKSPACE>"; break;
- 		case KEY_TAB: return "<TAB>"; break;
-		case KEY_MINUS: return "-"; break;
-		case KEY_EQUAL: return "="; break;
-		case KEY_LEFTBRACE: return "("; break;
-		case KEY_RIGHTBRACE: return ")"; break;
-		case KEY_ENTER: return "<ENTER>"; break;
-		case KEY_LEFTCTRL: return "<LEFTCTRL>"; break;
-		case KEY_SEMICOLON: return ";"; break;
-		case KEY_APOSTROPHE: return "'"; break;
-		case KEY_GRAVE: return "`"; break;
-		case KEY_LEFTSHIFT: return "<LEFTSHIFT>"; break;
-		case KEY_BACKSLASH: return "\\"; break;
-		case KEY_COMMA: return ","; break;
-		case KEY_DOT: return "."; break;
-		case KEY_SLASH: return "/"; break;
-		case KEY_RIGHTSHIFT: return "<RIGHTSHIFT>"; break;
-		case KEY_KPASTERISK: return "<Keypad *>"; break;
-		case KEY_LEFTALT: return "<LEFTALT>"; break;
-		case KEY_SPACE: return "<SPACE>"; break;
-		case KEY_CAPSLOCK: return "<CAPSLOCK>"; break;
-		case KEY_F1: return "<F1>"; break;
-		case KEY_F2: return "<F2>"; break;
-		case KEY_F3: return "<F3>"; break;
-		case KEY_F4: return "<F4>"; break;
-		case KEY_F5: return "<F5>"; break;
-		case KEY_F6: return "<F6>"; break;
-		case KEY_F7: return "<F7>"; break;
-		case KEY_F8: return "<F8>"; break;
-		case KEY_F9: return "<F9>"; break;
-		case KEY_F10: return "<F10>"; break;
-		case KEY_F11: return "<F11>"; break;
-		case KEY_F12: return "<F12>"; break;
-		case KEY_F13: return "<F13>"; break;
-		case KEY_F14: return "<F14>"; break;
-		case KEY_F15: return "<F15>"; break;
-		case KEY_F16: return "<F16>"; break;
-		case KEY_F17: return "<F17>"; break;
-		case KEY_F18: return "<F18>"; break;
-		case KEY_F19: return "<F19>"; break;
-		case KEY_F20: return "<F20>"; break;
-		case KEY_F21: return "<F21>"; break;
-		case KEY_F22: return "<F22>"; break;
-		case KEY_F23: return "<F23>"; break;
-		case KEY_F24: return "<F24>"; break;
-		case KEY_NUMLOCK: return "<NUMLOCK>"; break;
-		case KEY_KP0: return "<Keypad 0>"; break;
-		case KEY_KP1: return "<Keypad 1>"; break;
-		case KEY_KP2: return "<Keypad 2>"; break;
-		case KEY_KP3: return "<Keypad 3>"; break;
-		case KEY_KP4: return "<Keypad 4>"; break;
-		case KEY_KP5: return "<Keypad 5>"; break;
-		case KEY_KP6: return "<Keypad 6>"; break;
-		case KEY_KP7: return "<Keypad 7>"; break;
-		case KEY_KP8: return "<Keypad 8>"; break;
-		case KEY_KP9: return "<Keypad 9>"; break;
-		case KEY_KPPLUS: return "<Keypad +>"; break;
-		case KEY_KPMINUS: return "<Keypad ->"; break;
-		case KEY_KPDOT: return "<Keypad .>"; break;
-		case KEY_KPENTER: return "<Keypad EnTER>"; break;
-		case KEY_RIGHTCTRL: return "<RIGHTCTRL>"; break;
-		case KEY_KPSLASH: return "<Keypad />"; break;
-		case KEY_RIGHTALT: return "<RIGHTALT>"; break;
-		case KEY_UP: return "<UP>"; break;
-		case KEY_PAGEUP: return "<PAGEUP>"; break;
-		case KEY_LEFT: return "<LEFT>"; break;
-		case KEY_RIGHT: return "<RIGHT>"; break;
-		case KEY_END: return "<END>"; break;
-		case KEY_DOWN: return "<DOWN>"; break;
-		case KEY_PAGEDOWN: return "<PAGEDOWN>"; break;
-		case KEY_INSERT: return "<INSERT>"; break;
-		case KEY_DELETE: return "<DELETE>"; break;
-		case KEY_MUTE: return "<MUTE>"; break;
-		case KEY_VOLUMEDOWN: return "<VOLUMEDOWN>"; break;
-		case KEY_VOLUMEUP: return "<VOLUMEUP>"; break;
-		case KEY_POWER: return "<POWER>"; break;
-		
-		default: return "<UNKNOWN>"; break;
-	}
-}
-
 /****************************************
  *  Get symbols from the keyboard info  *
  ***************************************/
@@ -321,20 +195,19 @@ char* get_kb_keycodes(void)
  
 char* get_kb_layout(char *keycodes, char *symbols)
 {
-   // QWERTY(italian, us, polish, spanish), 
-   //french, deutch, Colemak, Dvorak, Workman
+   // QWERTY(italian, us, spanish), 
+   //french, deutch, Colemak, Dvorak
    if(strstr(keycodes, "qwerty"))
    {
    		if(strstr(symbols, "it")){ return "it";}
    		else if(strstr(symbols, "us")){ return "us";}
-   		else if(strstr(symbols, "pl")){ return "pl";}
-   		else if(strstr(symbols, "es")){return "es";}
+		else if(strstr(symbols, "es")){return "es";}
+		else return "unknown";
    }
    else if(strstr(symbols, "fr")){ return "fr";}
    else if(strstr(symbols, "de")){return "de";}
    else if(strstr(keycodes, "colemak")){ return "colemak";}
    else if(strstr(keycodes, "dvorak")){ return "dvorak";}
-   else if(strstr(keycodes, "workman")){ return "workman";}
    else return "unknown"; 
 }//End of get_kb_layout()
 
@@ -440,9 +313,513 @@ int conn(char *addr, char *port)
 	if(rp == NULL)
 	{
 		fprintf(stderr,"Failed to find a good address");
+		return 1;
 	}
 
 	freeaddrinfo(result);
 
 	return lc;
 }//End of conn()
+
+
+/*********************************************
+ *  Get the keystroke corresponding to code. *
+ *											 *
+ *  Supported Layouts:						 *
+ *						-QWERTY:(us,it,es)   *
+ *  					-AZERTY: fr          *
+ *  					-QWERTZ: de          *
+ *  					-COLEMAK             *
+ *  					-DVORAK: us          *
+ ********************************************/
+
+char* code_to_str(char* layout, int code)
+{
+	int lyt = 0;
+	if(!strcmp(layout, "fr")){ lyt = FR;}
+	else if(!strcmp(layout, "de")){ lyt = DE;}
+	else if(!strcmp(layout, "it")){ lyt = IT;}
+	else if(!strcmp(layout, "es")){ lyt = ES;}
+	else if(!strcmp(layout, "colemak")){ lyt = COLEMAK;}
+	else if(!strcmp(layout, "dvorak")){ lyt = DVORAK;}
+	//us is default..
+
+	switch(code)
+	{
+		//Letters:
+		case KEY_A: 
+					switch(lyt)
+					{
+						case FR: return "q"; break;
+						default: return "a"; break;
+					}
+					break;
+		case KEY_B: 
+					switch(lyt)
+					{
+						case DVORAK: return "x"; break;
+						default: return "b"; break;
+					}
+					break;
+		case KEY_C: 
+					switch(lyt)
+					{
+						case DVORAK: return "j"; break;
+						default: return "c"; break;
+					}
+					break;
+		case KEY_D: 
+					switch(lyt)
+					{
+						case DVORAK: return "e"; break;
+						case COLEMAK: return "s"; break; 
+						default:  return "d"; break;
+					}
+					break;
+		case KEY_E: 
+					switch(lyt)
+					{
+						case DVORAK: return "."; break;
+						case COLEMAK: return "f"; break; 
+						default: return "e"; break;
+					}
+					break;
+		case KEY_F: 
+					switch(lyt)
+					{
+						case DVORAK: return "u"; break;
+						case COLEMAK: return "t"; break; 
+						default:  return "f"; break;
+					}
+					break;
+		case KEY_G: 
+					switch(lyt)
+					{
+						case DVORAK: return "i"; break;
+						case COLEMAK: return "d"; break; 
+						default:  return "g"; break;
+					}
+					break;
+		case KEY_H: 
+					switch(lyt)
+					{
+						case DVORAK: return "d"; break;
+						default: return "h"; break;
+					}
+					break;
+		case KEY_I: 
+					switch(lyt)
+					{
+						case DVORAK: return "c"; break;
+						case COLEMAK: return "u"; break; 
+						default:  return "i"; break;
+					}
+					break;
+		case KEY_J: 
+					switch(lyt)
+					{
+						case DVORAK: return "h"; break;
+						case COLEMAK: return "n"; break; 
+						default:  return "j"; break;
+					}
+					break;
+		case KEY_K: 
+					switch(lyt)
+					{
+						case DVORAK: return "t"; break;
+						case COLEMAK: return "e"; break; 
+						default:  return "k"; break;
+					}
+					break;
+		case KEY_L: 
+					switch(lyt)
+					{
+						case DVORAK: return "n"; break;
+						case COLEMAK: return "i"; break; 
+						default:  return "l"; break;
+					}
+					break;
+		case KEY_M: 
+					switch(lyt)
+					{
+						case FR: return ",";
+						default: return "m"; break;
+					}
+					break;
+		case KEY_N: 
+					switch(lyt)
+					{
+						case DVORAK: return "b"; break;
+						case COLEMAK: return "k"; break; 
+						default:  return "n"; break;
+					}
+					break;
+		case KEY_O: 
+					switch(lyt)
+					{
+						case DVORAK: return "r"; break;
+						case COLEMAK: return "y"; break; 
+						default:  return "o"; break;
+					}
+					break;
+		case KEY_P: 
+					switch(lyt)
+					{
+						case DVORAK: return "l"; break;
+						case COLEMAK: return ";"; break; 
+						default:  return "p"; break;
+					}
+					break;
+		case KEY_Q: 
+					switch(lyt)
+					{
+						case DVORAK: return "\'"; break;
+						case FR: return "a"; break;
+						default: return "q"; break;
+					}
+					break;
+		case KEY_R: 
+					switch(lyt)
+					{
+						case DVORAK:
+						case COLEMAK: return "p"; break; 
+						default: return "r"; break;
+					}
+					break;
+		case KEY_S: 
+					switch(lyt)
+					{
+						case DVORAK: return "o"; break;
+						case COLEMAK: return "r"; break; 
+						default:  return "s"; break;
+					}
+					break;
+		case KEY_T: 
+					switch(lyt)
+					{
+						case DVORAK: return "y"; break;
+						case COLEMAK: return "g"; break; 
+						default:  return "t"; break;
+					}
+					break;
+		case KEY_U: 
+					switch(lyt)
+					{
+						case DVORAK: return "g"; break;
+						case COLEMAK: return "l"; break; 
+						default:  return "u"; break;
+					}
+					break;
+		case KEY_V: 
+					switch(lyt)
+					{
+						case DVORAK: return "k"; break;
+						default: return "v"; break;
+					}
+					break;
+		case KEY_W: 
+					switch(lyt)
+					{
+						case DVORAK: return ","; break;
+						case FR: return "z"; break;
+						default: return "w"; break;
+					}
+					break;
+		case KEY_X: 
+					switch(lyt)
+					{
+						case DVORAK: return "q"; break;
+						default: return "x"; break;
+					}
+					break;
+		case KEY_Y: 
+					switch(lyt)
+					{
+						case DVORAK: return "f"; break;
+						case COLEMAK: return "j"; break;
+						case DE: return "z"; break;
+						default: return "y"; break;
+					}
+					break;
+		case KEY_Z: 
+					switch(lyt)
+					{
+						case DVORAK: return ";"; break;
+						case DE: return "y"; break;
+						case FR: return "w"; break;
+						default: return "z"; break;
+					}
+					break;
+		//Numbers:
+		case KEY_0: 
+					switch(lyt)
+					{
+						case FR: return "à"; break;
+						default: return "0"; break;
+					}
+					break;
+		case KEY_1: 
+					switch(lyt)
+					{
+						case FR: return "&"; break;
+						default: return "1"; break;
+					}
+					break;
+		case KEY_2: 
+					switch(lyt)
+					{
+						case FR: return "é"; break;
+						default: return "2"; break;
+					}
+					break;
+		case KEY_3: 
+					switch(lyt)
+					{
+						case FR: return "\""; break;
+						default:  return "3"; break;
+					}
+					break;
+		case KEY_4: 
+					switch(lyt)
+					{
+						case FR: return "\'"; break;
+						default:   return "4"; break;
+					}
+					break;
+		case KEY_5: 
+					switch(lyt)
+					{
+						case FR: return "("; break;
+						default:   return "5"; break;
+
+					}
+					break;
+		case KEY_6: 
+					switch(lyt)
+					{
+						case FR: return "-"; break;
+						default: return "6"; break;
+					}
+					break;
+		case KEY_7: 
+					switch(lyt)
+					{
+						case FR: return "è"; break;
+						default: return "7"; break;
+					}
+					break;
+		case KEY_8: 
+					switch(lyt)
+					{
+						case FR: return "_"; break;
+						default: return "8"; break;
+					}
+					break;
+		case KEY_9: 
+					switch(lyt)
+					{
+						case FR: return "ç"; break;
+						default: return "9"; break;
+					}
+					break;
+		//Special chars:
+		case KEY_ESC: return "[ESC]"; break;
+		case KEY_BACKSPACE: return "[BACKSPACE]"; break;
+ 		case KEY_TAB: return "[TAB]"; break;
+		case KEY_MINUS: 
+						switch(lyt)
+						{
+							//case COLEMAK: return "="; break;
+							case DVORAK: return "["; break;
+							case DE: return "ß"; break;
+							case FR: return ")"; break;
+							case ES: 
+							case IT: return "\'"; break;
+							default: return "-"; break;
+						}
+						break;
+		case KEY_EQUAL: 
+						switch(lyt)
+						{ 	
+							//case COLEMAK: return "="; break;
+							//case FR: return "="; break;
+							case DVORAK: return "]"; break;
+							case DE: return "´";
+							case ES: return "¡"; break;
+							case IT: return "ì"; break;
+							default: return "="; break;
+						}
+						break;
+		case KEY_LEFTBRACE: 
+						switch(lyt)
+						{
+							//case COLEMAK: return "["; break;
+							case DVORAK: return "/"; break;
+							case DE: return "ü"; break;
+							case FR: return "^"; break;
+							case ES: return "`"; break;
+							case IT: return "è"; break;
+							default: return "["; break;
+						}
+						break;
+		case KEY_RIGHTBRACE: 
+						switch(lyt)
+						{
+							//case COLEMAK: return "]"; break;
+							case DVORAK: return "="; break;
+							case FR: return "$"; break;
+							case DE:
+							case ES:
+							case IT: return "+"; break;
+							default: return "]"; break;
+						}
+						break;
+		case KEY_ENTER: return "[ENTER]"; break;
+		case KEY_LEFTCTRL: return "[LEFTCTRL]"; break;
+		case KEY_COMPOSE: return "[MENU]"; break;
+		case KEY_LEFTMETA: return "[WIN]"; break;
+		case KEY_SEMICOLON: 
+						switch(lyt)
+						{
+							case DVORAK: return "s"; break;
+							case COLEMAK: return "o"; break;
+							case DE: return "ö"; break;
+							case FR: return "m"; break;
+							case ES: return "ñ"; break;
+							case IT: return "ò"; break;
+							default: return ";"; break;
+						}
+						break;
+		case KEY_APOSTROPHE: 
+						switch(lyt)
+						{
+							case DVORAK: return "-"; break;
+							case COLEMAK: return "\'"; break;
+							case DE: return "ä"; break;
+							case FR: return "ù"; break;
+							case ES: return "´"; break;
+							case IT: return "à"; break;
+							default: return "'"; break;
+						}
+						break;
+		case KEY_GRAVE: 
+						switch(lyt)
+						{
+							//case COLEMAK: return "`"; break;
+							//case DVORAK: return "`"; break;
+							case DE: return "^"; break;
+							case FR: return "²"; break;
+							case ES: return "º"; break;
+							case IT: return "\\"; break;
+							default: return "`"; break;
+						}
+						break;
+		case KEY_LEFTSHIFT: return "[LEFTSHIFT]"; break;
+		case KEY_BACKSLASH: 
+						switch(lyt)
+						{
+							//case DVORAK: return "\\"; break;
+							//case COLEMAK: return "\\"; break;
+							case DE: return "#"; break;
+							case FR: return "*"; break;
+							case ES: return "ç"; break;
+							case IT: return "ù"; break;
+							default: return "\\"; break;
+						}
+						break;
+		case KEY_COMMA: 
+						switch(lyt)
+						{
+							case DVORAK: return "w"; break;
+							case FR:  return ";"; break;
+							default: return ","; break;
+						}
+						break;
+		case KEY_DOT: 
+						switch(lyt)
+						{
+							case DVORAK: return "v"; break;
+							case FR:  return ":"; 
+							default: break;return "."; break;
+						}
+						break;
+		case KEY_SLASH: 
+						switch(lyt)
+						{
+							//case COLEMAK: return "/"; break;
+							case DVORAK: return "z"; break;
+							case FR: return "!"; break;
+							case DE:
+							case ES:
+							case IT: return "-"; break;
+							default: return "/"; break;
+						}
+						break;
+		case KEY_102ND: return "<"; break;
+		case KEY_RIGHTSHIFT: return "[RIGHTSHIFT]"; break;
+		case KEY_KPASTERISK: return "[Keypad *]"; break;
+		case KEY_LEFTALT: return "[LEFTALT]"; break;
+		case KEY_SPACE: return "[SPACE]"; break;
+		case KEY_CAPSLOCK: return "[CAPSLOCK]"; break;
+		case KEY_F1: return "[F1]"; break;
+		case KEY_F2: return "[F2]"; break;
+		case KEY_F3: return "[F3]"; break;
+		case KEY_F4: return "[F4]"; break;
+		case KEY_F5: return "[F5]"; break;
+		case KEY_F6: return "[F6]"; break;
+		case KEY_F7: return "[F7]"; break;
+		case KEY_F8: return "[F8]"; break;
+		case KEY_F9: return "[F9]"; break;
+		case KEY_F10: return "[F10]"; break;
+		case KEY_F11: return "[F11]"; break;
+		case KEY_F12: return "[F12]"; break;
+		case KEY_F13: return "[F13]"; break;
+		case KEY_F14: return "[F14]"; break;
+		case KEY_F15: return "[F15]"; break;
+		case KEY_F16: return "[F16]"; break;
+		case KEY_F17: return "[F17]"; break;
+		case KEY_F18: return "[F18]"; break;
+		case KEY_F19: return "[F19]"; break;
+		case KEY_F20: return "[F20]"; break;
+		case KEY_F21: return "[F21]"; break;
+		case KEY_F22: return "[F22]"; break;
+		case KEY_F23: return "[F23]"; break;
+		case KEY_F24: return "[F24]"; break;
+		case KEY_NUMLOCK: return "[NUMLOCK]"; break;
+		case KEY_KP0: return "[Keypad 0]"; break;
+		case KEY_KP1: return "[Keypad 1]"; break;
+		case KEY_KP2: return "[Keypad 2]"; break;
+		case KEY_KP3: return "[Keypad 3]"; break;
+		case KEY_KP4: return "[Keypad 4]"; break;
+		case KEY_KP5: return "[Keypad 5]"; break;
+		case KEY_KP6: return "[Keypad 6]"; break;
+		case KEY_KP7: return "[Keypad 7]"; break;
+		case KEY_KP8: return "[Keypad 8]"; break;
+		case KEY_KP9: return "[Keypad 9]"; break;
+		case KEY_KPPLUS: return "[Keypad +]"; break;
+		case KEY_KPMINUS: return "[Keypad -]"; break;
+		case KEY_KPDOT: return "[Keypad .]"; break;
+		case KEY_KPENTER: return "[Keypad ENTER]"; break;
+		case KEY_RIGHTCTRL: return "[RIGHTCTRL]"; break;
+		case KEY_KPSLASH: return "[Keypad /]"; break;
+		case KEY_RIGHTALT: return "[RIGHTALT]"; break;
+		case KEY_UP: return "[UP]"; break;
+		case KEY_PAGEUP: return "[PAGEUP]"; break;
+		case KEY_LEFT: return "[LEFT]"; break;
+		case KEY_RIGHT: return "[RIGHT]"; break;
+		case KEY_PAUSE: return "[PAUSE]"; break;
+		case KEY_SYSRQ: return "[STAMP]"; break;
+		case KEY_HOME: return "[BEGIN]"; break;
+		case KEY_END: return "[END]"; break;
+		case KEY_DOWN: return "[DOWN]"; break;
+		case KEY_PAGEDOWN: return "[PAGEDOWN]"; break;
+		case KEY_INSERT: return "[INSERT]"; break;
+		case KEY_DELETE: return "[DELETE]"; break;
+		case KEY_MUTE: return "[MUTE]"; break;
+		case KEY_VOLUMEDOWN: return "[VOLUMEDOWN]"; break;
+		case KEY_VOLUMEUP: return "[VOLUMEUP]"; break;
+		case KEY_POWER: return "[POWER]"; break;
+		
+		default: return "[UNKNOWN]"; break;
+	}
+}//End of code_to_str()
