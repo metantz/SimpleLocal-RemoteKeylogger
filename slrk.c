@@ -1,5 +1,5 @@
 /************************************************************
- *  Created by: ANTZ                                        *
+ *  Created by: metantz                                       *
  *  SIMPLE_LOCAL_&_REMOTE_KEYLOGGER                         *
  *  A lot of functionalities must be added. Coming soon...  *
  ***********************************************************/
@@ -38,7 +38,7 @@ int main(int argc, char** argv)
                 fprintf(stderr,"\nNOTES:\n\tSupported keyboards:\n\n\t- QWERTY: us, es, it.\n\t- AZERTY: fr.\n\t- QWERTZ: de.\n\t- DVORAK: us.\n\t- COLEMAK\n\t- default: qwerty-us.\n");
                 fprintf(stderr,"\n\tYou may also change keyboard during slrk execution with, for example:\n");
                 fprintf(stderr,"\n\t  $setxkbmap dvorak\n\n\tand slrk will detects the new layout.\n");
-                fprintf(stderr,"\nAUTHOR:\n\tantz <antz@tutamail.com>\n");
+                fprintf(stderr,"\nAUTHOR:\n\tmetantz <antz@tutamail.com>\n");
                 exit(0);
         }
 
